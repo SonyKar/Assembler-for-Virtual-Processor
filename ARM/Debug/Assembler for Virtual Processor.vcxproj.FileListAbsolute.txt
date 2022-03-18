@@ -1,0 +1,30 @@
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor\App.xbf
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor\MainPage.xbf
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor\resources.pri
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor\AppxManifest.xml
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor\Assembler for Virtual Processor.build.appxrecipe
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor\Microsoft.UI.Xaml.winmd
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor\Microsoft.UI.Xaml.xml
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor\Microsoft.UI.Xaml.pri
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor.vcxproj.AssemblyReference.cache
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\XamlSaveStateFile.xml
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor.vcxproj.CopyComplete
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Microsoft.UI.Xaml.pri.xml
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\ResourceHandlingTask.state
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\Assembler for Virtual Processor.vcxproj.GenerateResource.Cache
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\priconfig.xml
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\priconfig.xml.intermediate
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\unfiltered.layout.resfiles
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\unfiltered.layout.resfiles.intermediate
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\filtered.layout.resfiles
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\filtered.layout.resfiles.intermediate
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\excluded.layout.resfiles
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\excluded.layout.resfiles.intermediate
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\resources.resfiles
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\resources.resfiles.intermediate
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\pri.resfiles
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\pri.resfiles.intermediate
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\qualifiers.txt
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\qualifiers.txt.intermediate
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\MultipleQualifiersPerDimensionFound.txt
+C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\ARM\Debug\ProjectArchitectures.txt

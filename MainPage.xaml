@@ -8,7 +8,12 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid FocusVisualSecondaryBrush="#99FFFFFF" Background="Red">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="299*"/>
+        </Grid.ColumnDefinitions>
 
     </Grid>
 </Page>
