@@ -8,12 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid FocusVisualSecondaryBrush="#99FFFFFF" Background="Red">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="299*"/>
+            <ColumnDefinition Width="1157*"/>
+            <ColumnDefinition Width="343*"/>
         </Grid.ColumnDefinitions>
+        <Button Content="Button" Margin="713,461,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <TextBox x:Name="path" HorizontalAlignment="Left" Margin="279,352,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="355"/>
+        <TextBlock x:Name="content" HorizontalAlignment="Left" Margin="122,418,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
