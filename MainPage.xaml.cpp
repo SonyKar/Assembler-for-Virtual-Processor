@@ -51,11 +51,14 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
 			if (file)
 			{
 				path->Text = file->Path;
-				/*create_task(FileIO::ReadBufferAsync(file)).then([this](Streams::IBuffer^ buffer) {
-					auto dataReader = DataReader::FromBuffer(buffer);
-					content->Text = dataReader->ReadString(buffer->Length);
-					content->Text = "asd";
-				});*/
+				return FileIO::ReadBufferAsync(file);
 			}
-		});
+		}).then([this](Streams::IBuffer^ buffer) {
+			
+				auto dataReader = DataReader::FromBuffer(buffer);
+				String^ bufferText = dataReader->ReadString(buffer->Length);
+				content->Text = bufferText;
+
+			}
+		);
 }

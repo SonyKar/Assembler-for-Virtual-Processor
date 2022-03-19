@@ -35,7 +35,7 @@
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\x64\Debug\Assembler for Virtual Processor\Assembler for Virtual Processor.exe">
       <PackagePath>Assembler for Virtual Processor.exe</PackagePath>
-      <Modified>2022-03-18T10:52:58.947</Modified>
+      <Modified>2022-03-19T15:52:31.686</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\x64\Debug\Assembler for Virtual Processor\Assembler_for_Virtual_Processor.winmd">
       <PackagePath>Assembler_for_Virtual_Processor.winmd</PackagePath>
@@ -77,11 +77,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\x64\Debug\Assembler for Virtual Processor\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2022-03-18T10:55:37.536</Modified>
+      <Modified>2022-03-19T15:52:31.470</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\x64\Debug\Assembler for Virtual Processor\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2022-03-18T10:55:37.536</Modified>
+      <Modified>2022-03-19T15:52:31.470</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.19041.0\\redist\Debug\X64\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
