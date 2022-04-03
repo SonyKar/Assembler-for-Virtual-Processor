@@ -9,6 +9,7 @@
 #include "pch.h"
 #include "MainPage.xaml.h"
 #include <Transform.h>
+#include <sstream>
 
 using namespace Assembler_for_Virtual_Processor;
 
@@ -34,13 +35,18 @@ MainPage::MainPage()
 {
 	InitializeComponent();
 }
-
+Platform::String^ StdStringToPlatformString(std::string str)
+{
+	std::wstringstream wss;
+	wss << str.c_str();
+	return ref new Platform::String(wss.str().c_str());
+}
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	/*assembler::Transform* transform = new assembler::Transform();
-	transform->BinaryLineToHex(transform->IntToBinary(7, transform->FULL_LEN));
-	delete transform;*/
+    //assembler::Transform* transform = new assembler::Transform();
+	//content->Text= StdStringToPlatformString(transform->BinaryLineToHex(transform->IntToBinary(7, transform->FULL_LEN)));
+	//delete transform;
 
 	FileOpenPicker^ fileOpenPicker = ref new FileOpenPicker();
 
@@ -55,7 +61,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
 		{
 			if (file)
 			{
-				path->Text = file->Path;
+				source_path->Text = file->Path;
 				return FileIO::ReadBufferAsync(file);
 			}
 		}).then([this](Streams::IBuffer^ buffer) {
@@ -67,3 +73,20 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
 			}
 		);
 }
+
+void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
+	destination_path->Text = ApplicationData::Current->LocalFolder->Path;
+	concurrency::create_task(storageFolder->CreateFileAsync("output.bin", CreationCollisionOption::ReplaceExisting));
+	create_task(storageFolder->GetFileAsync("output.bin")).then([](StorageFile^ inputFile)
+		{
+			string test1 = "101010101011z100101001010101011";
+			for (auto it = test1.begin(); it < test1.end(); it++) {
+				*it = (*it) - 48;
+			}
+			create_task(FileIO::WriteTextAsync(inputFile, StdStringToPlatformString(test1)));
+		});
+}
+
+

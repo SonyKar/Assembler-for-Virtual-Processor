@@ -8,14 +8,16 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1157*"/>
             <ColumnDefinition Width="343*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Button" Margin="713,461,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <TextBox x:Name="path" HorizontalAlignment="Left" Margin="279,352,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="355"/>
-        <TextBlock x:Name="content" HorizontalAlignment="Left" Margin="122,418,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
+        <Button x:Name="inputBtn" Content="Pick file" Margin="443,20,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <TextBox x:Name="source_path" HorizontalAlignment="Left" Margin="34,20,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="355"/>
+        <TextBlock x:Name="content" HorizontalAlignment="Left" Margin="34,155,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="destination_path" HorizontalAlignment="Left" Margin="34,85,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="355"/>
+        <Button x:Name="outputBtn" Content="Write Output" Margin="443,85,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
 
     </Grid>
 </Page>
