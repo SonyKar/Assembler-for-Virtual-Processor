@@ -8,6 +8,7 @@
 #include <string>
 #include "pch.h"
 #include "MainPage.xaml.h"
+#include <Transform.h>
 
 using namespace Assembler_for_Virtual_Processor;
 
@@ -37,6 +38,10 @@ MainPage::MainPage()
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	/*assembler::Transform* transform = new assembler::Transform();
+	transform->BinaryLineToHex(transform->IntToBinary(7, transform->FULL_LEN));
+	delete transform;*/
+
 	FileOpenPicker^ fileOpenPicker = ref new FileOpenPicker();
 
 	Array<String^>^ fileTypes = ref new Array<String^>(1);
