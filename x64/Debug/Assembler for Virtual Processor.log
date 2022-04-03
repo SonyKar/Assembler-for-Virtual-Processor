@@ -1,4 +1,0 @@
-﻿  MainPage.xaml.cpp
-C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\MainPage.xaml.cpp(56): warning C4715: '<lambda_52f79f7d1b2f96c4712d0c377e958a5b>::operator()': not all control paths return a value
-     Creating library C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\x64\Debug\Assembler for Virtual Processor\Assembler for Virtual Processor.lib and object C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\x64\Debug\Assembler for Virtual Processor\Assembler for Virtual Processor.exp
-  Assembler for Virtual Processor.vcxproj -> C:\Users\stoic\source\repos\Assembler-for-Virtual-Processor\x64\Debug\Assembler for Virtual Processor\Assembler for Virtual Processor.exe
