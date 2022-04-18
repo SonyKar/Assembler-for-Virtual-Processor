@@ -47,8 +47,13 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
     //assembler::Transform* transform = new assembler::Transform();
 	//content->Text= StdStringToPlatformString(transform->BinaryLineToHex(transform->IntToBinary(7, transform->FULL_LEN)));
 	//delete transform;
-
-	FileOpenPicker^ fileOpenPicker = ref new FileOpenPicker();
+	assembler::Transform* transform = new assembler::Transform();
+	content->Text = StdStringToPlatformString(transform->OperandToBinary("(R5)", 4));
+	content->Text = StdStringToPlatformString(transform->OperandToBinary("R5(123)", 4));
+	content->Text = StdStringToPlatformString(transform->OperandToBinary("(123)R5", 4));
+	content->Text = StdStringToPlatformString(transform->OperandToBinary("123", 4));
+	content->Text = StdStringToPlatformString(transform->OperandToBinary("R5", 4));
+	/*FileOpenPicker^ fileOpenPicker = ref new FileOpenPicker();
 
 	Array<String^>^ fileTypes = ref new Array<String^>(1);
 	fileTypes->Data[0] = ".asm";
@@ -71,7 +76,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
 				content->Text = bufferText;
 
 			}
-		);
+		);*/
 }
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)

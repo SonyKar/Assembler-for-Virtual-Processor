@@ -64,6 +64,11 @@ Transform::Transform()
 	};
 }
 
+const string Transform::IMEDIATE_ADDRESS = "00";
+const string Transform::DIRECT_REGISTER = "01";
+const string Transform::INDIRECT_REGISTER = "10";
+const string Transform::INDEX_ADDRESS = "11";
+
 string Transform::GetInstructionBinaryCode(string instruction)
 {
 	return instructionDictionary[instruction];
@@ -100,3 +105,64 @@ string assembler::Transform::BinaryLineToHex(string binary)
 	return hexString;
 }
 
+int assembler::Transform::StringToInt(string str, int startIndex, int endIndex)
+{
+	int tmp = 0;
+	for (int i = startIndex; i < endIndex; i++)
+	{
+		tmp += (int)str[i] - '0';
+		tmp *= 10;
+	}
+
+	return tmp / 10;
+}
+
+string assembler::Transform::OperandToBinary(string operand, short int length)
+{
+	string result;
+	int indexR = -1, indexParantesesO = -1, indexParantasesC = -1;
+	bool containR = false, containParanteses = false;
+
+	for (int i = 0; i < operand.size(); i++) 
+	{
+		if (operand[i] == 'R')
+		{
+			indexR = i;
+			containR = true;
+		}
+		else if (operand[i] == '(')
+		{
+			indexParantesesO = i;
+			containParanteses = true;
+		}
+		else if (operand[i] == ')')
+		{
+			indexParantasesC = i;
+		}
+	}
+
+	if (containR && containParanteses)
+	{
+		if (indexR > indexParantesesO && indexR < indexParantasesC)
+		{
+			result = INDIRECT_REGISTER + IntToBinary((int)operand[indexR + 1] - '0', length);
+		} 
+		else
+		{
+			int tmp = StringToInt(operand, indexParantesesO + 1, indexParantasesC);
+			result += INDEX_ADDRESS + IntToBinary((int)operand[indexR + 1] - '0', length);
+			result += IntToBinary(tmp, FULL_LEN);
+		}
+	}
+	else if (containR && !containParanteses)
+	{
+		result = DIRECT_REGISTER + IntToBinary((int)operand[indexR + 1] - '0', length);
+	}
+	else
+	{
+		int tmp = StringToInt(operand, 0, operand.size());
+		result = IMEDIATE_ADDRESS + IntToBinary(tmp, FULL_LEN);
+	}
+
+	return result;
+}

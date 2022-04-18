@@ -12,6 +12,12 @@ namespace assembler
 	{
 	private:
 		map<string, string> instructionDictionary;
+		static const string IMEDIATE_ADDRESS;
+		static const string DIRECT_REGISTER;
+		static const string INDIRECT_REGISTER;
+		static const string INDEX_ADDRESS;
+
+		int StringToInt(string str, int startIndex, int endIndex);
 	public:
 		static const short int QUATER_LEN = 4;
 		static const short int HALF_LEN = 8;
@@ -22,5 +28,6 @@ namespace assembler
 		string GetInstructionBinaryCode(string instruction);
 		string IntToBinary(int value, short int operandLength);
 		string BinaryLineToHex(string binary);
+		string OperandToBinary(string operand, short int length);
 	};
 }
