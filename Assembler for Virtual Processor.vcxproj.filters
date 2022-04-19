@@ -11,6 +11,9 @@
     <Filter Include="Assembler">
       <UniqueIdentifier>{329a0681-01fb-4205-92a6-4e4bc1a967c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{86d66346-d77a-4300-954a-6a9ccfa85a7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -20,10 +23,16 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Assembler</Filter>
     </ClCompile>
+    <ClCompile Include="Tokenizer.cpp">
+      <Filter>Assembler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Transform.h">
+      <Filter>Assembler</Filter>
+    </ClInclude>
+    <ClInclude Include="Tokenizer.h">
       <Filter>Assembler</Filter>
     </ClInclude>
   </ItemGroup>

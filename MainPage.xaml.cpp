@@ -41,19 +41,24 @@ Platform::String^ StdStringToPlatformString(std::string str)
 	wss << str.c_str();
 	return ref new Platform::String(wss.str().c_str());
 }
-
+string platformStringToStdString(String^ input) {
+	std::wstring fooW(input->Begin());
+	std::string output(fooW.begin(), fooW.end());
+	return output;
+}
 void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	
     //assembler::Transform* transform = new assembler::Transform();
 	//content->Text= StdStringToPlatformString(transform->BinaryLineToHex(transform->IntToBinary(7, transform->FULL_LEN)));
 	//delete transform;
-	assembler::Transform* transform = new assembler::Transform();
-	content->Text = StdStringToPlatformString(transform->OperandToBinary("(R5)", 4));
-	content->Text = StdStringToPlatformString(transform->OperandToBinary("R5(123)", 4));
-	content->Text = StdStringToPlatformString(transform->OperandToBinary("(123)R5", 4));
-	content->Text = StdStringToPlatformString(transform->OperandToBinary("123", 4));
-	content->Text = StdStringToPlatformString(transform->OperandToBinary("R5", 4));
-	/*FileOpenPicker^ fileOpenPicker = ref new FileOpenPicker();
+	//assembler::Transform* transform = new assembler::Transform();
+	//content->Text = StdStringToPlatformString(transform->OperandToBinary("(R5)", 4));
+	//content->Text = StdStringToPlatformString(transform->OperandToBinary("R5(123)", 4));
+	//content->Text = StdStringToPlatformString(transform->OperandToBinary("(123)R5", 4));
+	//content->Text = StdStringToPlatformString(transform->OperandToBinary("123", 4));
+	//content->Text = StdStringToPlatformString(transform->OperandToBinary("R5", 4));
+	FileOpenPicker^ fileOpenPicker = ref new FileOpenPicker();
 
 	Array<String^>^ fileTypes = ref new Array<String^>(1);
 	fileTypes->Data[0] = ".asm";
@@ -76,11 +81,37 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
 				content->Text = bufferText;
 
 			}
-		);*/
+		);
+		
+
 }
+
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	string inputText = platformStringToStdString(content->Text);
+	output->Text = "";
+	while (inputText.length() != 0) {
+		size_t pos = inputText.find_first_of("\r\n");
+		string line = inputText.substr(0, pos);
+		if (line.find(",") != string::npos) {
+			string opcode =line.substr(0,line.find_first_of(' '));
+			size_t posOfComma = line.find(',');
+			size_t posOfSpace = line.find_first_of(' ');
+			string aux = line.substr(posOfSpace+1);
+			string first_operand = aux.substr(0,aux.find(','));
+			string second_operand = line.substr(posOfComma+1);
+
+			output->Text += StdStringToPlatformString(opcode + "\n");
+			output->Text += StdStringToPlatformString(first_operand+ "\n");
+			output->Text += StdStringToPlatformString(second_operand + "\n");
+
+		}
+		
+		//output->Text += StdStringToPlatformString(line);
+		inputText = inputText.substr(pos+2, inputText.length());
+    }
+
 	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
 	destination_path->Text = ApplicationData::Current->LocalFolder->Path;
 	concurrency::create_task(storageFolder->CreateFileAsync("output.bin", CreationCollisionOption::ReplaceExisting));
