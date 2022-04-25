@@ -80,7 +80,7 @@ string Transform::IntToBinary(int value, short int operandLength)
 
 	while (value != 0)
 	{
-		result += ((value % 2) + '0');
+		result = (char)((value % 2) + '0') + result;
 		value /= 2;
 	}
 
@@ -125,7 +125,7 @@ string assembler::Transform::OperandToBinary(string operand, short int length)
 
 	for (int i = 0; i < operand.size(); i++) 
 	{
-		if (operand[i] == 'R')
+		if (operand[i] == 'r')
 		{
 			indexR = i;
 			containR = true;

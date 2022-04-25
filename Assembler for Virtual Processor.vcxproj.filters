@@ -26,6 +26,9 @@
     <ClCompile Include="Tokenizer.cpp">
       <Filter>Assembler</Filter>
     </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -34,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="Tokenizer.h">
       <Filter>Assembler</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

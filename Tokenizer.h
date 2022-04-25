@@ -1,4 +1,7 @@
 #pragma once
+#include <sstream>
+#include <Transform.h>
+#include <Helper.h>
 
 using namespace std;
 
@@ -8,6 +11,7 @@ namespace tokenizer
 	{
 	public :
 		static string tokenize(string inputText);
+		
 	};
 }
 
