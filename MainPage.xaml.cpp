@@ -78,12 +78,9 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 		string hexOutput = "";
 		while (ouputTextBinWriteTask.length() >= 16)
 		{
-			string hexLineOutput = transform->BinaryLineToHex(ouputTextBinWriteTask.substr(0, 16));
-			for (auto it = hexLineOutput.begin(); it < hexLineOutput.end(); it++) {
-				*it = (*it) - 48;
-			}
+			char hexLineOutput = transform->BinaryLineToByte(ouputTextBinWriteTask.substr(0, 16));
 			hexOutput += hexLineOutput;
-			ouputTextBinWriteTask.substr(16, ouputTextBinWriteTask.length());
+			ouputTextBinWriteTask = ouputTextBinWriteTask.substr(16, ouputTextBinWriteTask.length());
 		}
 		create_task(FileIO::WriteTextAsync(inputFile, helper::Helper::StdStringToPlatformString(hexOutput)));	
 	});

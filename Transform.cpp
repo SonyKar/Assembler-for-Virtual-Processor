@@ -69,9 +69,22 @@ const string Transform::DIRECT_REGISTER = "01";
 const string Transform::INDIRECT_REGISTER = "10";
 const string Transform::INDEX_ADDRESS = "11";
 
-string Transform::GetInstructionBinaryCode(string instruction)
+string Transform::GetInstructionBinaryCode(string opcode)
 {
-	return instructionDictionary[instruction];
+	return instructionDictionary[opcode];
+}
+
+// binary code of opcode
+int Transform::GetInstructionType(string opcode)
+{
+	int type;
+
+	if (opcode[0] == '0') type = 1;
+	else if (opcode[1] == '0') type = 2;
+	else if (opcode[2] == '1') type = 3;
+	else type = 4;
+
+	return type;
 }
 
 string Transform::IntToBinary(int value, short int operandLength)
@@ -93,19 +106,16 @@ string Transform::IntToBinary(int value, short int operandLength)
 	return result;
 }
 
-string assembler::Transform::BinaryLineToHex(string binary)
+char Transform::BinaryLineToByte(string binary)
 {
 	char binaryString[17];
 	strcpy_s(binaryString, 17, binary.c_str());
-
 	int value = (int)strtol(binaryString, NULL, 2);
-	char hexString[3];
-	sprintf_s(hexString, 3, "%x", value);
 
-	return hexString;
+	return (char)value;
 }
 
-int assembler::Transform::StringToInt(string str, int startIndex, int endIndex)
+int Transform::StringToInt(string str, int startIndex, int endIndex)
 {
 	int tmp = 0;
 	for (int i = startIndex; i < endIndex; i++)
@@ -117,7 +127,7 @@ int assembler::Transform::StringToInt(string str, int startIndex, int endIndex)
 	return tmp / 10;
 }
 
-string assembler::Transform::OperandToBinary(string operand, short int length)
+string Transform::OperandToBinary(string operand, short int length)
 {
 	string result;
 	int indexR = -1, indexParantesesO = -1, indexParantasesC = -1;
