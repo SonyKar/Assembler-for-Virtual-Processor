@@ -81,7 +81,7 @@ int Transform::GetInstructionType(string opcode)
 
 	if (opcode[0] == '0') type = 1;
 	else if (opcode[1] == '0') type = 2;
-	else if (opcode[2] == '1') type = 3;
+	else if (opcode[2] == '0') type = 3;
 	else type = 4;
 
 	return type;

@@ -68,7 +68,12 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 {
 	assembler::Transform* transform = new assembler::Transform();
 	string ouputTextBin = tokenizer::Tokenizer::tokenize(helper::Helper::platformStringToStdString(content->Text));
-	output->Text = helper::Helper::StdStringToPlatformString(ouputTextBin);
+	output->Text = "";
+	for (int i = 0; i < ouputTextBin.length() / 16; i++) {
+    	string line = ouputTextBin.substr(0, (1 + i) * 16);
+		line = line.substr(i*16, line.length()) + "\n";
+		output->Text += helper::Helper::StdStringToPlatformString(line);
+	}
 	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
 	destination_path->Text = ApplicationData::Current->LocalFolder->Path;
 	concurrency::create_task(storageFolder->CreateFileAsync("output.bin", CreationCollisionOption::ReplaceExisting));
