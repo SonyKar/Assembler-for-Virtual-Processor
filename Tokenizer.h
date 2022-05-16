@@ -13,5 +13,10 @@ namespace tokenizer
 		static string tokenize(string inputText);
 		
 	};
+
+	struct etiquette {
+		string name;
+		int pcPosition;
+	};
 }
 
