@@ -39,7 +39,9 @@ MainPage::MainPage()
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	
+	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
+	concurrency::create_task(storageFolder->CreateFileAsync("output.bin", CreationCollisionOption::ReplaceExisting));
+
     assembler::Transform* transform = new assembler::Transform();
 	FileOpenPicker^ fileOpenPicker = ref new FileOpenPicker();
 	Array<String^>^ fileTypes = ref new Array<String^>(1);
@@ -76,27 +78,35 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 	}
 	string ouputTextBinWriteTask = ouputTextBin;
 	string hexOutput = "";
-	int i = 0;
 	while (ouputTextBinWriteTask.length() >= 8)
 	{
 		string line = ouputTextBinWriteTask.substr(0, 8);
 		char hexLineOutput = transform->BinaryLineToByte(line);
 			hexOutput += hexLineOutput;
 		ouputTextBinWriteTask = ouputTextBinWriteTask.substr(8, ouputTextBinWriteTask.length());
-		i++;
 	}
 
 	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
 	destination_path->Text = ApplicationData::Current->LocalFolder->Path;
 
-	concurrency::create_task(storageFolder->CreateFileAsync("output.bin", CreationCollisionOption::ReplaceExisting));
-
-	/*create_task(storageFolder->GetFileAsync("output.bin")).then([ouputTextBin, transform](StorageFile^ inputFile)
-	{	
-		create_task(FileIO::WriteTextAsync(inputFile, helper::Helper::StdStringToPlatformString(hexOutput)));	
-	});
-	*/
-
+	create_task(storageFolder->GetFileAsync("output.bin")).then([hexOutput](StorageFile^ outputFile)
+		{
+			create_task(outputFile->OpenAsync(FileAccessMode::ReadWrite)).then([hexOutput, outputFile](IRandomAccessStream^ stream)
+				{
+					// Process stream
+					string output = hexOutput;
+					IOutputStream^ outputStream = stream->GetOutputStreamAt(0);
+					DataWriter^ dataWriter = ref new DataWriter(outputStream);
+					while (output.length() >0)
+					{
+						char atom = output.at(0);
+						dataWriter->WriteByte(atom);
+						output = output.substr(1, output.length());
+					}
+					dataWriter->StoreAsync();
+					outputStream->FlushAsync();
+				});
+		});
 
 
 }
