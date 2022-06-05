@@ -74,21 +74,31 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 		line = line.substr(i*16, line.length()) + "\n";
 		output->Text += helper::Helper::StdStringToPlatformString(line);
 	}
+	string ouputTextBinWriteTask = ouputTextBin;
+	string hexOutput = "";
+	int i = 0;
+	while (ouputTextBinWriteTask.length() >= 8)
+	{
+		string line = ouputTextBinWriteTask.substr(0, 8);
+		char hexLineOutput = transform->BinaryLineToByte(line);
+			hexOutput += hexLineOutput;
+		ouputTextBinWriteTask = ouputTextBinWriteTask.substr(8, ouputTextBinWriteTask.length());
+		i++;
+	}
+
 	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
 	destination_path->Text = ApplicationData::Current->LocalFolder->Path;
+
 	concurrency::create_task(storageFolder->CreateFileAsync("output.bin", CreationCollisionOption::ReplaceExisting));
-	create_task(storageFolder->GetFileAsync("output.bin")).then([ouputTextBin,transform](StorageFile^ inputFile)
-	{
-		string ouputTextBinWriteTask = ouputTextBin;
-		string hexOutput = "";
-		while (ouputTextBinWriteTask.length() >= 16)
-		{
-			char hexLineOutput = transform->BinaryLineToByte(ouputTextBinWriteTask.substr(0, 16));
-			hexOutput += hexLineOutput;
-			ouputTextBinWriteTask = ouputTextBinWriteTask.substr(16, ouputTextBinWriteTask.length());
-		}
+
+	/*create_task(storageFolder->GetFileAsync("output.bin")).then([ouputTextBin, transform](StorageFile^ inputFile)
+	{	
 		create_task(FileIO::WriteTextAsync(inputFile, helper::Helper::StdStringToPlatformString(hexOutput)));	
 	});
+	*/
+
+
+
 }
 
 
