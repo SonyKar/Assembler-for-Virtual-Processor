@@ -14,6 +14,9 @@
     <Filter Include="Helpers">
       <UniqueIdentifier>{86d66346-d77a-4300-954a-6a9ccfa85a7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Processor">
+      <UniqueIdentifier>{8125b6d2-ecda-4ae4-a5c6-a630164515da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -29,6 +32,9 @@
     <ClCompile Include="Helper.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="ProcessorStructure.cpp">
+      <Filter>Processor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -40,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="Helper.h">
       <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessorStructure.h">
+      <Filter>Processor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
