@@ -8,5 +8,11 @@ public:
 	static int GetIndexValue();
 	static int GetInstructionClass();
 	static void MemoryOperation();
+	static void Decode();
+	static void DecodeDBus();
+	static void DecodeSBus();
+	static void DecodeALU();
+	static void DecodeRBus();
+	static void DecodeOther();
 };
 
