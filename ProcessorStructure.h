@@ -16,9 +16,9 @@ public:
 	static int RG[16];
 	static FLAG flags;
 	static int MEM[65536];
-	static int MPM[105];
+ 	static long int MPM[116];
 	static int MAR;
-	static int MIR;
+	static long int MIR;
 	static int ADR;
 	static int MDR;
 	static int IR;
