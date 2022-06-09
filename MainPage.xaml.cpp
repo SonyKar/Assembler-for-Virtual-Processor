@@ -90,7 +90,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 	destination_path->Text = ApplicationData::Current->LocalFolder->Path;
 
 	create_task(storageFolder->GetFileAsync("output.bin")).then([hexOutput](StorageFile^ outputFile)
-		{
+	{
 			create_task(outputFile->OpenAsync(FileAccessMode::ReadWrite)).then([hexOutput, outputFile](IRandomAccessStream^ stream)
 				{
 					// Process stream
@@ -106,7 +106,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 					dataWriter->StoreAsync();
 					outputStream->FlushAsync();
 				});
-		});
+	});
 
 
 }

@@ -15,6 +15,8 @@ public:
 	static int SP;
 	static int RG[16];
 	static FLAG flags;
+	static bool BE0;
+	static bool BE1;
 	static int MEM[65536];
  	static long int MPM[116];
 	static int MAR;

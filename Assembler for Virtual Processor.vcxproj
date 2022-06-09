@@ -176,6 +176,7 @@
     <ClInclude Include="MainPage.xaml.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="Processor.h" />
     <ClInclude Include="ProcessorStructure.h" />
     <ClInclude Include="Tokenizer.h" />
     <ClInclude Include="Transform.h" />
@@ -220,6 +221,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Processor.cpp" />
     <ClCompile Include="ProcessorStructure.cpp" />
     <ClCompile Include="Tokenizer.cpp" />
     <ClCompile Include="Transform.cpp" />

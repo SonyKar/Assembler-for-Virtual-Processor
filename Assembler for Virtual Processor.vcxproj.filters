@@ -35,6 +35,9 @@
     <ClCompile Include="ProcessorStructure.cpp">
       <Filter>Processor</Filter>
     </ClCompile>
+    <ClCompile Include="Processor.cpp">
+      <Filter>Processor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -48,6 +51,9 @@
       <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="ProcessorStructure.h">
+      <Filter>Processor</Filter>
+    </ClInclude>
+    <ClInclude Include="Processor.h">
       <Filter>Processor</Filter>
     </ClInclude>
   </ItemGroup>
