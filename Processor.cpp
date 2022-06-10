@@ -2,46 +2,60 @@
 #include "Processor.h"
 #include <ProcessorStructure.h>
 
-void Processor::Run()
+int Processor::state = 0;
+
+void Processor::RunStep()
 {
-	int state = 0;
+	if (ProcessorStructure::BPO)
+	{
+		Run();
+	}
+}
+
+void Processor::RunHalt()
+{
 	while (ProcessorStructure::BPO)
 	{
-		switch (state)
+		Run();
+	}
+}
+
+void Processor::Run()
+{
+	switch (state)
+	{
+	case 0:
+		ProcessorStructure::MIR = ProcessorStructure::MPM[ProcessorStructure::MAR];
+		state++;
+		break;
+	case 1:
+		Decode();
+		if (G())
 		{
-		case 0:
-			ProcessorStructure::MIR = ProcessorStructure::MPM[ProcessorStructure::MAR];
-			state++;
-			break;
-		case 1:
-			Decode();
-			if (G())
-			{
-				LdMAR();
-			}
-			else
-			{
-				ProcessorStructure::MAR++;
-			}
-			if (!(ProcessorStructure::MIR & 786432))
-			{
-				state = 0;
-			}
-			else
-			{
-				state = 2;
-			}
-			break;
-		case 2:
-			state = 3;
-			break;
-		case 3:
-			MemoryOperation();
-			state = 0;
-			break;
-		default:
-			break;
+			LdMAR();
 		}
+		else
+		{
+			ProcessorStructure::MAR++;
+		}
+		if (!(ProcessorStructure::MIR & 786432))
+		{
+			state = 0;
+		}
+		else
+		{
+			state = 2;
+		}
+		break;
+	case 2:
+		state = 3;
+		break;
+	case 3:
+		MemoryOperation();
+		state = 0;
+		break;
+	default:
+		break;
 	}
 }
 

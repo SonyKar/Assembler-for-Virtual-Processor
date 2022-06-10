@@ -2,6 +2,8 @@
 class Processor
 {
 public:
+	static void RunStep();
+	static void RunHalt();
 	static void Run();
 	static bool G();
 	static void LdMAR();
@@ -14,5 +16,6 @@ public:
 	static void DecodeALU();
 	static void DecodeRBus();
 	static void DecodeOther();
+	static int state;
 };
 
