@@ -128,8 +128,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click_2(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	//ProcessorStructure::MEM[0]=0;
-	//Processor::Run();
+	Processor::Run();
 }
 
 
