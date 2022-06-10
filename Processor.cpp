@@ -5,10 +5,8 @@
 void Processor::Run()
 {
 	int state = 0;
-	ProcessorStructure::IR = ProcessorStructure::MEM[ProcessorStructure::PC];
 	while (ProcessorStructure::BPO)
 	{
-
 		switch (state)
 		{
 		case 0:
@@ -112,7 +110,7 @@ void Processor::DecodeSBus()
 		ProcessorStructure::SBUS = ProcessorStructure::flags;
 		break;
 	case 2: // PdRgS
-		ProcessorStructure::SBUS = ProcessorStructure::RG[ProcessorStructure::IR & 960];
+		ProcessorStructure::SBUS = ProcessorStructure::RG[(ProcessorStructure::IR & 960) >> 6];
 		break;
 	case 3: // PdSps
 		ProcessorStructure::SBUS = ProcessorStructure::SP;
@@ -211,7 +209,7 @@ void Processor::DecodeALU()
 	default:
 		break;
 	}
-
+	
 	if (ProcessorStructure::RBUS == 0)
 	{
 		ProcessorStructure::flags = 0b100;
@@ -278,13 +276,13 @@ void Processor::DecodeOther()
 	case 0:
 		break;
 	case 1: // +2SP
-		ProcessorStructure::SP += 2;
+		ProcessorStructure::SP += 1;
 		break;
 	case 2: // -2SP
-		ProcessorStructure::SP -= 2;
+		ProcessorStructure::SP -= 1;
 		break;
 	case 3: // +2PC
-		ProcessorStructure::PC += 2;
+		ProcessorStructure::PC += 1;
 		break;
 	case 4: // A(1)BE0
 		ProcessorStructure::BE0 = 1;
@@ -331,7 +329,7 @@ void Processor::DecodeOther()
 
 bool Processor::G()
 {
-	return (ProcessorStructure::MIR & 14336) == 14336;
+	return (ProcessorStructure::MIR & 14336) != 0;
 }
 
 void Processor::LdMAR()
@@ -339,16 +337,16 @@ void Processor::LdMAR()
 	switch (ProcessorStructure::MIR & 14336)//#succesor
 	{
 	case 2048: // jump 0b001 
-		ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+		ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		break;
 	case 4096:// jump 0b010
 		if (!((ProcessorStructure::MIR & 128) >> 7) && ProcessorStructure::BE0)//if ac_low
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else if (((ProcessorStructure::MIR & 128) >> 7) && !ProcessorStructure::BE0)//if nac_low
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else
 		{
@@ -358,11 +356,11 @@ void Processor::LdMAR()
 	case 6144:// jump 0b011
 		if (!((ProcessorStructure::MIR & 128) >> 7) && ProcessorStructure::BE1)//if cil
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else if (((ProcessorStructure::MIR & 128) >> 7) && !ProcessorStructure::BE1)//if ncil
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else
 		{
@@ -372,11 +370,11 @@ void Processor::LdMAR()
 	case 8192:// jump 0b100
 		if (!((ProcessorStructure::MIR & 128) >> 7) && (ProcessorStructure::flags & 1))//if carry
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else if (((ProcessorStructure::MIR & 128) >> 7) && !(ProcessorStructure::flags & 1))//if not carry
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else
 		{
@@ -386,11 +384,11 @@ void Processor::LdMAR()
 	case 10240:// jump 0b101
 		if (!((ProcessorStructure::MIR & 128) >> 7) && ((ProcessorStructure::flags & 100) >> 2))//if zero
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else if (((ProcessorStructure::MIR & 128) >> 7) && !((ProcessorStructure::flags & 100) >> 2))//if not zero
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else
 		{
@@ -400,11 +398,11 @@ void Processor::LdMAR()
 	case 12288:// jump 0b110
 		if (!((ProcessorStructure::MIR & 128) >> 7) && ((ProcessorStructure::flags & 1000) >> 3))//if negative
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else if (((ProcessorStructure::MIR & 128) >> 7) && !((ProcessorStructure::flags & 1000) >> 3))//if not negative
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else
 		{
@@ -414,11 +412,11 @@ void Processor::LdMAR()
 	case 14336:// jump 0b111
 		if (!((ProcessorStructure::MIR & 128) >> 7) && ((ProcessorStructure::flags & 10) >> 1))//if overflow
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else if (((ProcessorStructure::MIR & 128) >> 7) && !((ProcessorStructure::flags & 10) >> 1))//if not overflow
 		{
-			ProcessorStructure::MAR = (ProcessorStructure::MIR & 63) + GetIndexValue();
+			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
 		else
 		{
@@ -439,9 +437,9 @@ int Processor::GetIndexValue()
 	case 256://001
 		return GetInstructionClass();
 	case 512://010
-		return (ProcessorStructure::IR & 48) >> 4;
-	case 768://011
 		return (ProcessorStructure::IR & 3072) >> 10;
+	case 768://011
+		return (ProcessorStructure::IR & 48) >> 4;
 	case 1024://100
 		return (ProcessorStructure::IR & 28672) >> 12;//opcode class b1
 	case 1280://101
@@ -465,22 +463,22 @@ int Processor::GetIndexValue()
 int Processor::GetInstructionClass()
 {
 	//class b1
-	if ((ProcessorStructure::MIR & 32768) == 0)
+	if ((ProcessorStructure::IR & 32768) == 0)
 	{
 		return 0;
 	}
 	//class b4
-	if ((ProcessorStructure::MIR & 57344) == 57344)
+	if ((ProcessorStructure::IR & 57344) == 57344)
 	{
 		return 3;
 	}
 	//class b3
-	if ((ProcessorStructure::MIR & 49152) == 49152)
+	if ((ProcessorStructure::IR & 49152) == 49152)
 	{
 		return 2;
 	}
 	//class b2
-	if ((ProcessorStructure::MIR & 32768) == 32768)
+	if ((ProcessorStructure::IR & 32768) == 32768)
 	{
 		return 1;
 	}
@@ -492,7 +490,7 @@ void Processor::MemoryOperation()
 	switch ((ProcessorStructure::MIR & 786432) >> 18)
 	{
 	case 1:
-		ProcessorStructure::IR = ProcessorStructure::MEM[ProcessorStructure::PC];
+		ProcessorStructure::IR = ProcessorStructure::MEM[ProcessorStructure::ADR];
 		break;
 	case 2:
 		ProcessorStructure::MDR = ProcessorStructure::MEM[ProcessorStructure::ADR];
