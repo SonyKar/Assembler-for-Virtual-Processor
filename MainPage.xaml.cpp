@@ -86,15 +86,15 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 		char hexLineOutput = transform->BinaryLineToByte(line);
 		hexOutput += hexLineOutput;
 		ouputTextBinWriteTask = ouputTextBinWriteTask.substr(8, ouputTextBinWriteTask.length());
-	}	
+	}
 	//moved to back end
 	int memPositionStore = 32;
-	int sizeOf =hexOutput.length();
-    for (int i = 0; i < hexOutput.length(); i = i + 2)
+	int sizeOf = hexOutput.length();
+	for (int i = 0; i < hexOutput.length(); i = i + 2)
 	{
 		char upperHalf = hexOutput.at(i);
-		char lowerHalf = hexOutput.at(i+1);
-		int instruction = ((((int)upperHalf) & 255) << 8)+(((int)lowerHalf) & 255);
+		char lowerHalf = hexOutput.at(i + 1);
+		int instruction = ((((int)upperHalf) & 255) << 8) + (((int)lowerHalf) & 255);
 		ProcessorStructure::MEM[memPositionStore++] = instruction;
 	}
 
@@ -148,54 +148,156 @@ void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerNa
 	switch (registerName)
 	{
 	case 0:
-		this->R0->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R0_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 1:
-		this->R1->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R1_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 2:
-		this->R2->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R2_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 3:
-		this->R3->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R3_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 4:
-		this->R4->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R4_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 5:
-		this->R5->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R5_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 6:
-		this->R6->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R6_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 7:
-		this->R7->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R7_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 8:
-		this->R8->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R8_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 9:
-		this->R9->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R9_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 10:
-		this->R10->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R10_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 11:
-		this->R11->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R11_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 12:
-		this->R12->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R12_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 13:
-		this->R13->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R13_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 14:
-		this->R14->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R14_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	case 15:
-		this->R15->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R15_content->Text = helper::Helper::StdStringToPlatformString(value);
 		break;
 	default:
 		break;
 	}
+
 }
+
+void Assembler_for_Virtual_Processor::MainPage::cgTContent(std::string value)
+{
+	this->T_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgPCContent(std::string value)
+{
+	this->PC_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgSPContent(std::string value)
+{
+	this->SP_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgFLAGSContent(std::string value)
+{
+	this->FLAGS_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgBE1Content(std::string value)
+{
+	this->BE1_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgBE0Content(std::string value)
+{
+	this->BE0_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgBVIContent(std::string value)
+{
+	this->BVI_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgBPOContent(std::string value)
+{
+	this->BPO_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgMARContent(std::string value)
+{
+	this->MAR_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgMIRContent(std::string value)
+{
+	this->MIR_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgADRContent(std::string value)
+{
+	this->ADR_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgMDRContent(std::string value)
+{
+	this->MDR_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgIRContent(std::string value)
+{
+	this->IR_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgSBUSContent(std::string value)
+{
+	this->SBUS_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgDBUSContent(std::string value)
+{
+	this->DBUS_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgRBUSContent(std::string value)
+{
+	this->RBUS_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgZContent(std::string value)
+{
+	this->C_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgCContent(std::string value)
+{
+	this->C_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgNContent(std::string value)
+{
+	this->N_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgOContent(std::string value)
+{
+	this->V_content->Text = helper::Helper::StdStringToPlatformString(value);
+}
+

@@ -33,7 +33,7 @@
             <TextBlock x:Name="R3_content" HorizontalAlignment="Left" Margin="45,58,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="R4_content" HorizontalAlignment="Left" Margin="45,77,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="R5" HorizontalAlignment="Left" Margin="0,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" SelectionChanged="R1_Copy_SelectionChanged" Text="R05:"/>
-            <TextBlock x:Name="R1_content_Copy4" HorizontalAlignment="Left" Margin="45,96,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
+            <TextBlock x:Name="R5_content" HorizontalAlignment="Left" Margin="45,96,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="R6_content" HorizontalAlignment="Left" Margin="46,115,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="R6" HorizontalAlignment="Left" Margin="0,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" SelectionChanged="R1_Copy_SelectionChanged" Text="R06:"/>
             <TextBlock x:Name="R7" HorizontalAlignment="Left" Margin="0,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" SelectionChanged="R1_Copy_SelectionChanged" Text="R07:"/>
@@ -92,8 +92,8 @@
             <TextBlock x:Name="Z_content" HorizontalAlignment="Left" Margin="391,19,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="13" RenderTransformOrigin="0.385,0.474"/>
             <TextBlock x:Name="N" HorizontalAlignment="Left" Margin="367,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="22" RenderTransformOrigin="0.37,0.316" Text="N:"/>
             <TextBlock x:Name="N_content" HorizontalAlignment="Left" Margin="391,39,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="13" RenderTransformOrigin="0.385,0.474"/>
-            <TextBlock x:Name="F" HorizontalAlignment="Left" Margin="367,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="22" RenderTransformOrigin="0.37,0.316" Text="F:"/>
-            <TextBlock x:Name="N_content_Copy" HorizontalAlignment="Left" Margin="391,58,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="13" RenderTransformOrigin="0.385,0.474"/>
+            <TextBlock x:Name="V" HorizontalAlignment="Left" Margin="367,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="22" RenderTransformOrigin="0.37,0.316" Text="V:"/>
+            <TextBlock x:Name="V_content" HorizontalAlignment="Left" Margin="391,58,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="13" RenderTransformOrigin="0.385,0.474"/>
 
 
         </Grid>
