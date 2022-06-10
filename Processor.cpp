@@ -6,7 +6,7 @@ void Processor::Run()
 {
 	int state = 0;
 	ProcessorStructure::IR = ProcessorStructure::MEM[ProcessorStructure::PC];
-	while (true)
+	while (ProcessorStructure::BPO)
 	{
 
 		switch (state)
