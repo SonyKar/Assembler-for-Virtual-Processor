@@ -4,7 +4,7 @@
 int ProcessorStructure::T = 0;
 int ProcessorStructure::PC = 32;
 int ProcessorStructure::SP = 65536;
-int ProcessorStructure::RG[16] = {}; // initialize all elements with 0
+int ProcessorStructure::RG[16] = { 0, 0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // initialize all elements with 0
 int ProcessorStructure::MEM[65536] = {};
 int ProcessorStructure::MAR = 0;
 long int ProcessorStructure::MIR = 0;

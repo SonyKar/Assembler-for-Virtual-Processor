@@ -64,8 +64,8 @@ Transform::Transform()
 	};
 }
 
-const string Transform::IMEDIATE_ADDRESS = "00";
-const string Transform::DIRECT_REGISTER = "01";
+const string Transform::DIRECT_REGISTER = "00";
+const string Transform::IMEDIATE_ADDRESS = "01";
 const string Transform::INDIRECT_REGISTER = "10";
 const string Transform::INDEX_ADDRESS = "11";
 

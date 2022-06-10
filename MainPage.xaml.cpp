@@ -94,7 +94,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 	{
 		char upperHalf = hexOutput.at(i);
 		char lowerHalf = hexOutput.at(i+1);
-		int instruction = (((int)upperHalf) << 8)+(int)lowerHalf;
+		int instruction = ((((int)upperHalf) & 255) << 8)+(((int)lowerHalf) & 255);
 		ProcessorStructure::MEM[memPositionStore++] = instruction;
 	}
 
@@ -128,8 +128,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click_2(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	//ProcessorStructure::MEM[0]=0;
-	//Processor::Run();
+	Processor::Run();
 }
 
 
