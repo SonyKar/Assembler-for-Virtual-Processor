@@ -171,7 +171,7 @@ string Transform::OperandToBinary(string operand, short int length)
 	else
 	{
 		int tmp = StringToInt(operand, 0, operand.size());
-		result = IMEDIATE_ADDRESS + IntToBinary(tmp, FULL_LEN);
+		result = IMEDIATE_ADDRESS + IntToBinary(tmp, length);
 	}
 
 	return result;
