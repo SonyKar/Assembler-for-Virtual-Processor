@@ -5,10 +5,8 @@
 void Processor::Run()
 {
 	int state = 0;
-	ProcessorStructure::IR = ProcessorStructure::MEM[ProcessorStructure::PC];
 	while (ProcessorStructure::BPO)
 	{
-
 		switch (state)
 		{
 		case 0:
@@ -211,7 +209,7 @@ void Processor::DecodeALU()
 	default:
 		break;
 	}
-
+	
 	if (ProcessorStructure::RBUS == 0)
 	{
 		ProcessorStructure::flags = 0b100;
@@ -278,13 +276,13 @@ void Processor::DecodeOther()
 	case 0:
 		break;
 	case 1: // +2SP
-		ProcessorStructure::SP += 2;
+		ProcessorStructure::SP += 1;
 		break;
 	case 2: // -2SP
-		ProcessorStructure::SP -= 2;
+		ProcessorStructure::SP -= 1;
 		break;
 	case 3: // +2PC
-		ProcessorStructure::PC += 2;
+		ProcessorStructure::PC += 1;
 		break;
 	case 4: // A(1)BE0
 		ProcessorStructure::BE0 = 1;
@@ -492,7 +490,7 @@ void Processor::MemoryOperation()
 	switch ((ProcessorStructure::MIR & 786432) >> 18)
 	{
 	case 1:
-		ProcessorStructure::IR = ProcessorStructure::MEM[ProcessorStructure::PC];
+		ProcessorStructure::IR = ProcessorStructure::MEM[ProcessorStructure::ADR];
 		break;
 	case 2:
 		ProcessorStructure::MDR = ProcessorStructure::MEM[ProcessorStructure::ADR];
