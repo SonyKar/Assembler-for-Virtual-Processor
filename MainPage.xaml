@@ -21,7 +21,7 @@
         <TextBlock x:Name="output" HorizontalAlignment="Left" Margin="274,165,0,0" TextWrapping="Wrap" Text="outputContent" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="708" Width="236"/>
         <Button Content="RUN" Margin="640,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.516,0.469" FontWeight="Bold" Click="Button_Click_2" Height="32" Width="51"/>
         <TextBlock x:Name="ProcessorOutput" HorizontalAlignment="Left" Margin="639,401,0,0" TextWrapping="Wrap" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="459" Width="261" FocusVisualPrimaryBrush="#FFD40808" Text="processsorOutput"/>
-        <Grid HorizontalAlignment="Left" Height="305" Margin="639,91,0,0" VerticalAlignment="Top" Width="404">
+        <Grid x:Name="CPU_GUI" HorizontalAlignment="Left" Height="305" Margin="639,91,0,0" VerticalAlignment="Top" Width="404">
             <TextBlock x:Name="R0" HorizontalAlignment="Left" Margin="0,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" RenderTransformOrigin="0.37,0.316"><Run Text="R0"/><Run Text="0:"/></TextBlock>
             <TextBlock x:Name="R1" HorizontalAlignment="Left" Margin="0,20,0,0" TextWrapping="Wrap" Text="R01:" VerticalAlignment="Top" Height="19" Width="27"/>
             <TextBlock x:Name="R2" HorizontalAlignment="Left" Margin="0,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" SelectionChanged="R1_Copy_SelectionChanged" Text="R02:"/>

@@ -24,5 +24,30 @@ namespace Assembler_for_Virtual_Processor
 		void Button_Click_2(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void R1_Copy_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void MDR_content_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+	public:
+		void cgRegisterContent(int registerName,string value);
+
+		void cgTContent(string value);
+		void cgPCContent(string value);
+		void cgSPContent(string value);
+		void cgFLAGSContent(string value);
+		void cgBE1Content(string value);
+		void cgBE0Content(string value);
+		void cgBVIContent(string value);
+		void cgBPOContent(string value);
+		void cgMARContent(string value);
+		void cgMIRContent(string value);
+		void cgADRContent(string value);
+		void cgMDRContent(string value);
+		void cgIRContent(string value);
+		void cgSBUSContent(string value);
+		void cgBUSDContent(string value);
+		void cgRBUSContent(string value);
+		
+		void cgZContent(string value);
+		void cgCContent(string value);
+		void cgNContent(string value);
+		void cgOContent(string value);
+
 	};
 }

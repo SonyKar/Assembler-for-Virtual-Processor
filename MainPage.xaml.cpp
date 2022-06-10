@@ -142,3 +142,60 @@ void Assembler_for_Virtual_Processor::MainPage::MDR_content_SelectionChanged(Pla
 {
 
 }
+
+void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerName, string value)
+{
+	switch (registerName)
+	{
+	case 0:
+		this->R0->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 1:
+		this->R1->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 2:
+		this->R2->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 3:
+		this->R3->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 4:
+		this->R4->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 5:
+		this->R5->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 6:
+		this->R6->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 7:
+		this->R7->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 8:
+		this->R8->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 9:
+		this->R9->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 10:
+		this->R10->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 11:
+		this->R11->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 12:
+		this->R12->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 13:
+		this->R13->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 14:
+		this->R14->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	case 15:
+		this->R15->Text = helper::Helper::StdStringToPlatformString(value);
+		break;
+	default:
+		break;
+	}
+}
