@@ -1,12 +1,5 @@
 #pragma once
 
-struct FLAG {
-	int N = 0;
-	int Z = 0;
-	int V = 0;
-	int C = 0;
-};
-
 class ProcessorStructure
 {
 public:
@@ -14,9 +7,11 @@ public:
 	static int PC;
 	static int SP;
 	static int RG[16];
-	static FLAG flags;
+	static int flags; // NZVC
 	static bool BE0;
 	static bool BE1;
+	static bool BVI;
+	static bool BPO;
 	static int MEM[65536];
  	static long int MPM[116];
 	static int MAR;
@@ -27,5 +22,9 @@ public:
 	static int SBUS;
 	static int DBUS;
 	static int RBUS;
+	static short C;
+	static short N;
+	static short V;
+	static short Z;
 };
 

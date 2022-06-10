@@ -13,9 +13,16 @@ int ProcessorStructure::MDR = 0;
 int ProcessorStructure::IR  = 0;
 bool ProcessorStructure::BE0 = false;
 bool ProcessorStructure::BE1 = false;
+bool ProcessorStructure::BVI = false;
+bool ProcessorStructure::BPO = false;
 int ProcessorStructure::SBUS = 0;
 int ProcessorStructure::DBUS = 0;
 int ProcessorStructure::RBUS = 0;
+int ProcessorStructure::flags = 0; // NZVC
+short ProcessorStructure::C = 0;
+short ProcessorStructure::N = 0;
+short ProcessorStructure::Z = 0;
+short ProcessorStructure::V = 0;
 long int ProcessorStructure::MPM[116] = {
 	0b000001100001100001001101000000000011,
 	0b000000000000000000000001100110001010,
