@@ -92,8 +92,8 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 	int sizeOf =hexOutput.length();
     for (int i = 0; i < hexOutput.length(); i = i + 2)
 	{
-		char lowerHalf = hexOutput.at(i);
-		char upperHalf = hexOutput.at(i+1);
+		char upperHalf = hexOutput.at(i);
+		char lowerHalf = hexOutput.at(i+1);
 		int instruction = (((int)upperHalf) << 8)+(int)lowerHalf;
 		ProcessorStructure::MEM[memPositionStore++] = instruction;
 	}
