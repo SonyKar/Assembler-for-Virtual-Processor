@@ -143,7 +143,7 @@ void Assembler_for_Virtual_Processor::MainPage::MDR_content_SelectionChanged(Pla
 
 }
 
-void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerName, string value)
+void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerName, std::string value)
 {
 	switch (registerName)
 	{

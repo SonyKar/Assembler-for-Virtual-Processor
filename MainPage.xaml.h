@@ -25,7 +25,7 @@ namespace Assembler_for_Virtual_Processor
 		void R1_Copy_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		void MDR_content_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 	public:
-		void cgRegisterContent(int registerName,string value);
+		void cgRegisterContent(int registerName,std::string value);
 
 		void cgTContent(string value);
 		void cgPCContent(string value);
