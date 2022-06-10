@@ -184,19 +184,26 @@ void Processor::DecodeALU()
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS >> ProcessorStructure::SBUS;
 		break;
 	case 10: // LSR
+	{
 		unsigned int unsignedTmp = ProcessorStructure::DBUS;
 		ProcessorStructure::RBUS = unsignedTmp >> ProcessorStructure::SBUS;
+	}
 		break;
 	case 11: // ROL
+	{
 		short firstBit = ProcessorStructure::DBUS >> 15;
 		ProcessorStructure::RBUS = (ProcessorStructure::DBUS << ProcessorStructure::SBUS) & 65535;
 		ProcessorStructure::RBUS += firstBit;
+	}
 		break;
 	case 12: // ROR
+	{
 		short lastBit = ProcessorStructure::DBUS & 1;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS >> ProcessorStructure::SBUS;
 		ProcessorStructure::RBUS += (lastBit << 15);
+	}
 		break;
+	
 	case 13: // RLC ??
 		break;
 	case 14: // RRC ??
@@ -205,7 +212,7 @@ void Processor::DecodeALU()
 		break;
 	}
 
-	if (ProcessorStructure::RBUS == 0) 
+	if (ProcessorStructure::RBUS == 0)
 	{
 		ProcessorStructure::flags = 0b100;
 	}
@@ -217,10 +224,11 @@ void Processor::DecodeALU()
 	{
 		ProcessorStructure::flags |= 0b11;
 	}
-	else if(ProcessorStructure::RBUS & 65536) // carry
+	else if (ProcessorStructure::RBUS & 65536) // carry
 	{
 		ProcessorStructure::flags |= 0b1;
-	} else if (signBit != (ProcessorStructure::RBUS & 8000) >> 15) // overflow
+	}
+	else if (signBit != (ProcessorStructure::RBUS & 8000) >> 15) // overflow
 	{
 		ProcessorStructure::flags |= 0b10;
 	}

@@ -12,6 +12,8 @@
 #include <sstream>
 #include <Tokenizer.h>
 #include <Helper.h>
+#include <Processor.h>
+#include <ProcessorStructure.h>
 using namespace Assembler_for_Virtual_Processor;
 
 using namespace Platform;
@@ -42,7 +44,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
 	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
 	concurrency::create_task(storageFolder->CreateFileAsync("output.bin", CreationCollisionOption::ReplaceExisting));
 
-    assembler::Transform* transform = new assembler::Transform();
+	assembler::Transform* transform = new assembler::Transform();
 	FileOpenPicker^ fileOpenPicker = ref new FileOpenPicker();
 	Array<String^>^ fileTypes = ref new Array<String^>(1);
 	fileTypes->Data[0] = ".asm";
@@ -50,19 +52,19 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
 	fileOpenPicker->SuggestedStartLocation = PickerLocationId::Desktop;
 	fileOpenPicker->FileTypeFilter->ReplaceAll(fileTypes);
 	create_task(fileOpenPicker->PickSingleFileAsync()).then([this](StorageFile^ file)
-	{
-		if (file)
 		{
-			source_path->Text = file->Path;
-			return FileIO::ReadBufferAsync(file);
-		}
-	}).then([this](Streams::IBuffer^ buffer) {
-			
+			if (file)
+			{
+				source_path->Text = file->Path;
+				return FileIO::ReadBufferAsync(file);
+			}
+		}).then([this](Streams::IBuffer^ buffer) {
+
 			auto dataReader = DataReader::FromBuffer(buffer);
 			String^ bufferText = dataReader->ReadString(buffer->Length);
 			content->Text = bufferText;
-		}
-	);
+			}
+		);
 }
 
 
@@ -72,8 +74,8 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 	string ouputTextBin = tokenizer::Tokenizer::tokenize(helper::Helper::platformStringToStdString(content->Text));
 	output->Text = "";
 	for (int i = 0; i < ouputTextBin.length() / 16; i++) {
-    	string line = ouputTextBin.substr(0, (1 + i) * 16);
-		line = line.substr(i*16, line.length()) + "\n";
+		string line = ouputTextBin.substr(0, (1 + i) * 16);
+		line = line.substr(i * 16, line.length()) + "\n";
 		output->Text += helper::Helper::StdStringToPlatformString(line);
 	}
 	string ouputTextBinWriteTask = ouputTextBin;
@@ -82,22 +84,32 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 	{
 		string line = ouputTextBinWriteTask.substr(0, 8);
 		char hexLineOutput = transform->BinaryLineToByte(line);
-			hexOutput += hexLineOutput;
+		hexOutput += hexLineOutput;
 		ouputTextBinWriteTask = ouputTextBinWriteTask.substr(8, ouputTextBinWriteTask.length());
+	}	
+	//moved to back end
+	int memPositionStore = 32;
+    for (int i = 0; i < hexOutput.length(); i = i + 2)
+	{
+		char lowerHalf = hexOutput.at(i);
+		char upperHalf = hexOutput.at(i+1);
+		int instruction = (((int)upperHalf) << 8)+(int)lowerHalf;
+		int a=0;
+		ProcessorStructure::MEM[memPositionStore++] = instruction;
 	}
 
 	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
 	destination_path->Text = ApplicationData::Current->LocalFolder->Path;
 
 	create_task(storageFolder->GetFileAsync("output.bin")).then([hexOutput](StorageFile^ outputFile)
-	{
+		{
 			create_task(outputFile->OpenAsync(FileAccessMode::ReadWrite)).then([hexOutput, outputFile](IRandomAccessStream^ stream)
 				{
 					// Process stream
 					string output = hexOutput;
 					IOutputStream^ outputStream = stream->GetOutputStreamAt(0);
 					DataWriter^ dataWriter = ref new DataWriter(outputStream);
-					while (output.length() >0)
+					while (output.length() > 0)
 					{
 						char atom = output.at(0);
 						dataWriter->WriteByte(atom);
@@ -106,9 +118,28 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 					dataWriter->StoreAsync();
 					outputStream->FlushAsync();
 				});
-	});
+		});
 
 
 }
 
 
+
+
+void Assembler_for_Virtual_Processor::MainPage::Button_Click_2(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	ProcessorStructure::MEM[0]=0;
+	Processor::Run();
+}
+
+
+void Assembler_for_Virtual_Processor::MainPage::R1_Copy_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+
+}
+
+
+void Assembler_for_Virtual_Processor::MainPage::MDR_content_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+
+}
