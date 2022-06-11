@@ -41,6 +41,7 @@ MainPage::MainPage()
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+
 	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
 	concurrency::create_task(storageFolder->CreateFileAsync("output.bin", CreationCollisionOption::ReplaceExisting));
 
@@ -66,7 +67,6 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
 			}
 		);
 }
-
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
@@ -123,79 +123,177 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 
 }
 
-
-
-
 void Assembler_for_Virtual_Processor::MainPage::Button_Click_2(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	Processor::Run();
 }
-
 
 void Assembler_for_Virtual_Processor::MainPage::R1_Copy_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 
 }
 
-
 void Assembler_for_Virtual_Processor::MainPage::MDR_content_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 
 }
 
-void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerName, std::string value)
+void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerName, Platform::String^ value)
 {
+
 	switch (registerName)
 	{
 	case 0:
-		this->R0->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R0_content->Text = value;
 		break;
 	case 1:
-		this->R1->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R1_content->Text = value;
 		break;
 	case 2:
-		this->R2->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R2_content->Text = value;
 		break;
 	case 3:
-		this->R3->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R3_content->Text = value;
 		break;
 	case 4:
-		this->R4->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R4_content->Text = value;
 		break;
 	case 5:
-		this->R5->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R5_content->Text = value;
 		break;
 	case 6:
-		this->R6->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R6_content->Text = value;
 		break;
 	case 7:
-		this->R7->Text = helper::Helper::StdStringToPlatformString(value);
+		R7_content->Text = value;
 		break;
 	case 8:
-		this->R8->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R8_content->Text = value;
 		break;
 	case 9:
-		this->R9->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R9_content->Text = value;
 		break;
 	case 10:
-		this->R10->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R10_content->Text = value;
 		break;
 	case 11:
-		this->R11->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R11_content->Text = value;
 		break;
 	case 12:
-		this->R12->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R12_content->Text = value;
 		break;
 	case 13:
-		this->R13->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R13_content->Text = value;
 		break;
 	case 14:
-		this->R14->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R14_content->Text = value;
 		break;
 	case 15:
-		this->R15->Text = helper::Helper::StdStringToPlatformString(value);
+		this->R15_content->Text = value;
 		break;
 	default:
 		break;
 	}
+
+}
+
+
+void Assembler_for_Virtual_Processor::MainPage::cgTContent(Platform::String^ value)
+{
+	this->T_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgPCContent(Platform::String^ value)
+{
+	this->PC_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgSPContent(Platform::String^ value)
+{
+	this->SP_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgFLAGSContent(Platform::String^ value)
+{
+	this->FLAGS_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgBE1Content(Platform::String^ value)
+{
+	this->BE1_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgBE0Content(Platform::String^ value)
+{
+	this->BE0_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgBVIContent(Platform::String^ value)
+{
+	this->BVI_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgBPOContent(Platform::String^ value)
+{
+	this->BPO_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgMARContent(Platform::String^ value)
+{
+	this->MAR_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgMIRContent(Platform::String^ value)
+{
+	this->MIR_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgADRContent(Platform::String^ value)
+{
+	this->ADR_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgMDRContent(Platform::String^ value)
+{
+	this->MDR_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgIRContent(Platform::String^ value)
+{
+	this->IR_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgSBUSContent(Platform::String^ value)
+{
+	this->SBUS_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgDBUSContent(Platform::String^ value)
+{
+	this->DBUS_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgRBUSContent(Platform::String^ value)
+{
+	this->RBUS_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgZContent(Platform::String^ value)
+{
+	this->C_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgCContent(Platform::String^ value)
+{
+	this->C_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgNContent(Platform::String^ value)
+{
+	this->N_content->Text = value;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cgVContent(Platform::String^ value)
+{
+	this->V_content->Text = value;
 }

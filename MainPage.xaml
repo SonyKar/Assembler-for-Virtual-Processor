@@ -21,7 +21,7 @@
         <TextBlock x:Name="output" HorizontalAlignment="Left" Margin="274,165,0,0" TextWrapping="Wrap" Text="outputContent" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="708" Width="236"/>
         <Button Content="RUN" Margin="640,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.516,0.469" FontWeight="Bold" Click="Button_Click_2" Height="32" Width="51"/>
         <TextBlock x:Name="ProcessorOutput" HorizontalAlignment="Left" Margin="639,401,0,0" TextWrapping="Wrap" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="459" Width="261" FocusVisualPrimaryBrush="#FFD40808" Text="processsorOutput"/>
-        <Grid x:Name="CPU_GUI" HorizontalAlignment="Left" Height="305" Margin="639,91,0,0" VerticalAlignment="Top" Width="404">
+        <Grid x:Name="CPU_GUI" HorizontalAlignment="Left" Height="305" Margin="640,91,0,0" VerticalAlignment="Top" Width="404">
             <TextBlock x:Name="R0" HorizontalAlignment="Left" Margin="0,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" RenderTransformOrigin="0.37,0.316"><Run Text="R0"/><Run Text="0:"/></TextBlock>
             <TextBlock x:Name="R1" HorizontalAlignment="Left" Margin="0,20,0,0" TextWrapping="Wrap" Text="R01:" VerticalAlignment="Top" Height="19" Width="27"/>
             <TextBlock x:Name="R2" HorizontalAlignment="Left" Margin="0,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" SelectionChanged="R1_Copy_SelectionChanged" Text="R02:"/>
@@ -33,7 +33,7 @@
             <TextBlock x:Name="R3_content" HorizontalAlignment="Left" Margin="45,58,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="R4_content" HorizontalAlignment="Left" Margin="45,77,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="R5" HorizontalAlignment="Left" Margin="0,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" SelectionChanged="R1_Copy_SelectionChanged" Text="R05:"/>
-            <TextBlock x:Name="R1_content_Copy4" HorizontalAlignment="Left" Margin="45,96,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
+            <TextBlock x:Name="R5_content" HorizontalAlignment="Left" Margin="45,96,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="R6_content" HorizontalAlignment="Left" Margin="46,115,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="R6" HorizontalAlignment="Left" Margin="0,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" SelectionChanged="R1_Copy_SelectionChanged" Text="R06:"/>
             <TextBlock x:Name="R7" HorizontalAlignment="Left" Margin="0,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" SelectionChanged="R1_Copy_SelectionChanged" Text="R07:"/>
@@ -58,9 +58,9 @@
             <TextBlock x:Name="T_content" HorizontalAlignment="Left" Margin="224,1,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="PC" HorizontalAlignment="Left" Margin="176,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" RenderTransformOrigin="0.37,0.316" Text="PC:"/>
             <TextBlock x:Name="PC_content" HorizontalAlignment="Left" Margin="224,20,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
-            <TextBlock x:Name="SP_Copy" HorizontalAlignment="Left" Margin="177,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" RenderTransformOrigin="0.37,0.316" Text="SP:"/>
+            <TextBlock x:Name="SP" HorizontalAlignment="Left" Margin="177,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="27" RenderTransformOrigin="0.37,0.316" Text="SP:"/>
             <TextBlock x:Name="SP_content" HorizontalAlignment="Left" Margin="224,39,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
-            <TextBlock x:Name="FLAGS_Copy1" HorizontalAlignment="Left" Margin="176,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="44" RenderTransformOrigin="0.37,0.316" Text="FLAGS:"/>
+            <TextBlock x:Name="FLAGS" HorizontalAlignment="Left" Margin="176,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="44" RenderTransformOrigin="0.37,0.316" Text="FLAGS:"/>
             <TextBlock x:Name="FLAGS_content" HorizontalAlignment="Left" Margin="224,58,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
             <TextBlock x:Name="BE1" HorizontalAlignment="Left" Margin="176,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="44" RenderTransformOrigin="0.37,0.316" Text="BE1:"/>
             <TextBlock x:Name="BE1_content" HorizontalAlignment="Left" Margin="224,77,0,0" TextWrapping="Wrap" Text="000000000000" VerticalAlignment="Top"/>
@@ -92,8 +92,8 @@
             <TextBlock x:Name="Z_content" HorizontalAlignment="Left" Margin="391,19,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="13" RenderTransformOrigin="0.385,0.474"/>
             <TextBlock x:Name="N" HorizontalAlignment="Left" Margin="367,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="22" RenderTransformOrigin="0.37,0.316" Text="N:"/>
             <TextBlock x:Name="N_content" HorizontalAlignment="Left" Margin="391,39,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="13" RenderTransformOrigin="0.385,0.474"/>
-            <TextBlock x:Name="F" HorizontalAlignment="Left" Margin="367,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="22" RenderTransformOrigin="0.37,0.316" Text="F:"/>
-            <TextBlock x:Name="N_content_Copy" HorizontalAlignment="Left" Margin="391,58,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="13" RenderTransformOrigin="0.385,0.474"/>
+            <TextBlock x:Name="V" HorizontalAlignment="Left" Margin="367,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="22" RenderTransformOrigin="0.37,0.316" Text="F:"/>
+            <TextBlock x:Name="V_content" HorizontalAlignment="Left" Margin="391,58,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="13" RenderTransformOrigin="0.385,0.474"/>
 
 
         </Grid>
