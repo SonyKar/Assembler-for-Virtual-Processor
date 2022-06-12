@@ -91,10 +91,6 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 	int memPositionStore = 32;
 	for (auto it = hexOutput.begin(); it != hexOutput.end(); it++)
 	{
-		int asd = *it;
-		/*char upperHalf = hexOutput.at(i);
-		char lowerHalf = hexOutput.at(i + 1);
-		int instruction = ((((int)upperHalf) & 255) << 8) + (((int)lowerHalf) & 255);*/
 		ProcessorStructure::MEM[memPositionStore++] = *it;
 	}
 
@@ -106,17 +102,15 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 			create_task(outputFile->OpenAsync(FileAccessMode::ReadWrite)).then([hexOutput, outputFile](IRandomAccessStream^ stream)
 				{
 					// Process stream
-					/*string output = hexOutput;
 					IOutputStream^ outputStream = stream->GetOutputStreamAt(0);
 					DataWriter^ dataWriter = ref new DataWriter(outputStream);
-					while (output.length() > 0)
+					for (auto it = hexOutput.begin(); it != hexOutput.end(); it++)
 					{
-						char atom = output.at(0);
-						dataWriter->WriteByte(atom);
-						output = output.substr(1, output.length());
+						wchar_t atom = *it;
+						dataWriter->WriteInt16(atom);
 					}
 					dataWriter->StoreAsync();
-					outputStream->FlushAsync();*/
+					outputStream->FlushAsync();
 				});
 		});
 
