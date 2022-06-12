@@ -1,29 +1,29 @@
 #include "pch.h"
 #include "ProcessorStructure.h"
 
-int ProcessorStructure::T = 0;
-int ProcessorStructure::PC = 32;
-int ProcessorStructure::SP = 65536;
-int ProcessorStructure::RG[16] = { 0, 0, 0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; // initialize all elements with 0
+short int ProcessorStructure::T = 0;
+unsigned short int ProcessorStructure::PC = 32;
+unsigned short int ProcessorStructure::SP = 65536;
+short int ProcessorStructure::RG[16] = {}; // initialize all elements with 0
 int ProcessorStructure::MEM[65536] = {};
-int ProcessorStructure::MAR = 0;
-long int ProcessorStructure::MIR = 0;
-int ProcessorStructure::ADR = 0;
-int ProcessorStructure::MDR = 0;
+short unsigned int ProcessorStructure::MAR = 0;
+unsigned long long int ProcessorStructure::MIR = 0;
+short unsigned int ProcessorStructure::ADR = 0;
+short int ProcessorStructure::MDR = 0;
 int ProcessorStructure::IR  = 0;
 bool ProcessorStructure::BE0 = false;
 bool ProcessorStructure::BE1 = false;
 bool ProcessorStructure::BVI = false;
 bool ProcessorStructure::BPO = true;
-int ProcessorStructure::SBUS = 0;
-int ProcessorStructure::DBUS = 0;
-int ProcessorStructure::RBUS = 0;
-int ProcessorStructure::flags = 0; // NZVC
+short int ProcessorStructure::SBUS = 0;
+short int ProcessorStructure::DBUS = 0;
+short int ProcessorStructure::RBUS = 0;
+short ProcessorStructure::flags = 0; // NZVC
 short ProcessorStructure::C = 0;
 short ProcessorStructure::N = 0;
 short ProcessorStructure::Z = 0;
 short ProcessorStructure::V = 0;
-long int ProcessorStructure::MPM[116] = {
+unsigned long long int ProcessorStructure::MPM[116] = {
 	0b000001100001100001001101000000000011,
 	0b000000000000000000000001100110001010,
 	0b000000000000000000010100100000000100,

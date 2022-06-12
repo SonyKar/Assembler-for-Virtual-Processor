@@ -28,7 +28,7 @@ namespace assembler
 		string GetInstructionBinaryCode(string instruction);
 		int GetInstructionType(string opcode);
 		string IntToBinary(int value, short int operandLength);
-		char BinaryLineToByte(string binary);
+		wchar_t BinaryLineToByte(string binary);
 		string OperandToBinary(string operand, short int length);
 	};
 }

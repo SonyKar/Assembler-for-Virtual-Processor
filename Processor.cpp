@@ -9,6 +9,7 @@ void Processor::RunStep()
 	if (ProcessorStructure::BPO)
 	{
 		Run();
+		// ShowAll();
 	}
 }
 
@@ -17,6 +18,7 @@ void Processor::RunHalt()
 	while (ProcessorStructure::BPO)
 	{
 		Run();
+		// ShowAll()
 	}
 }
 

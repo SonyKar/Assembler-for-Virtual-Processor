@@ -16,8 +16,9 @@ namespace Assembler_for_Virtual_Processor
 	{
 	public:
 		MainPage();
-		void cgRegisterContent(int registerName, Platform::String^ value);
 
+		void cgShowRegisters();
+		void cgRegisterContent(int registerName, Platform::String^ value);
 		void cgTContent(Platform::String^ value);
 		void cgPCContent(Platform::String^ value);
 		void cgSPContent(Platform::String^ value);

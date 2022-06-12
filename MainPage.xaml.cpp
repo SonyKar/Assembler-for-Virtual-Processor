@@ -79,23 +79,23 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 		output->Text += helper::Helper::StdStringToPlatformString(line);
 	}
 	string ouputTextBinWriteTask = ouputTextBin;
-	string hexOutput = "";
-	while (ouputTextBinWriteTask.length() >= 8)
+	list<wchar_t> hexOutput;
+	while (ouputTextBinWriteTask.length() >= 16)
 	{
-		string line = ouputTextBinWriteTask.substr(0, 8);
-		char hexLineOutput = transform->BinaryLineToByte(line);
-		hexOutput += hexLineOutput;
-		ouputTextBinWriteTask = ouputTextBinWriteTask.substr(8, ouputTextBinWriteTask.length());
+		string line = ouputTextBinWriteTask.substr(0, 16);
+		wchar_t hexLineOutput = transform->BinaryLineToByte(line);
+		hexOutput.push_back(hexLineOutput); 
+		ouputTextBinWriteTask = ouputTextBinWriteTask.substr(16, ouputTextBinWriteTask.length());
 	}
 	//moved to back end
 	int memPositionStore = 32;
-	int sizeOf = hexOutput.length();
-	for (int i = 0; i < hexOutput.length(); i = i + 2)
+	for (auto it = hexOutput.begin(); it != hexOutput.end(); it++)
 	{
-		char upperHalf = hexOutput.at(i);
+		int asd = *it;
+		/*char upperHalf = hexOutput.at(i);
 		char lowerHalf = hexOutput.at(i + 1);
-		int instruction = ((((int)upperHalf) & 255) << 8) + (((int)lowerHalf) & 255);
-		ProcessorStructure::MEM[memPositionStore++] = instruction;
+		int instruction = ((((int)upperHalf) & 255) << 8) + (((int)lowerHalf) & 255);*/
+		ProcessorStructure::MEM[memPositionStore++] = *it;
 	}
 
 	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
@@ -106,7 +106,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 			create_task(outputFile->OpenAsync(FileAccessMode::ReadWrite)).then([hexOutput, outputFile](IRandomAccessStream^ stream)
 				{
 					// Process stream
-					string output = hexOutput;
+					/*string output = hexOutput;
 					IOutputStream^ outputStream = stream->GetOutputStreamAt(0);
 					DataWriter^ dataWriter = ref new DataWriter(outputStream);
 					while (output.length() > 0)
@@ -116,7 +116,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 						output = output.substr(1, output.length());
 					}
 					dataWriter->StoreAsync();
-					outputStream->FlushAsync();
+					outputStream->FlushAsync();*/
 				});
 		});
 
@@ -125,7 +125,8 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 
 void Assembler_for_Virtual_Processor::MainPage::Button_Click_2(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	Processor::Run();
+	Processor::RunHalt();
+	cgShowRegisters();
 }
 
 void Assembler_for_Virtual_Processor::MainPage::R1_Copy_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
@@ -135,7 +136,7 @@ void Assembler_for_Virtual_Processor::MainPage::R1_Copy_SelectionChanged(Platfor
 
 void Assembler_for_Virtual_Processor::MainPage::MDR_content_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-
+	
 }
 
 void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerName, Platform::String^ value)
@@ -197,6 +198,34 @@ void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerNa
 
 }
 
+
+void Assembler_for_Virtual_Processor::MainPage::cgShowRegisters()
+{
+	cgTContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::T)));
+	cgPCContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::PC)));
+	cgSPContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::SP)));
+	cgFLAGSContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::flags)));
+	cgBE1Content(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::BE1)));
+	cgBE0Content(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::BE0)));
+	cgBVIContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::BVI)));
+	cgBPOContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::BPO)));
+	cgMARContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::MAR)));
+	cgMIRContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::MIR)));
+	cgMDRContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::MDR)));
+	cgADRContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::ADR)));
+	cgIRContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::IR)));
+	cgSBUSContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::SBUS)));
+	cgDBUSContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::DBUS)));
+	cgRBUSContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::RBUS)));
+	cgZContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::Z)));
+	cgCContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::C)));
+	cgNContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::N)));
+	cgVContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::V)));
+	for (int i = 0; i < 16; i++)
+	{
+		cgRegisterContent(i, helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::RG[i])));
+	}
+}
 
 void Assembler_for_Virtual_Processor::MainPage::cgTContent(Platform::String^ value)
 {

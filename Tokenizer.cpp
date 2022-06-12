@@ -11,16 +11,28 @@ string tokenizer::Tokenizer::tokenize(string input){
 	std::for_each(inputText.begin(), inputText.end(), [](char& c)
 	{
 		c = ::tolower(c);
-	});
+	}); 
+	string inputTextCopy = inputText;
 	
 	int pcCounter = 0;
 	list<etiquette> etiquettes = {};
+	while (inputTextCopy.length() != 0) {
+		size_t pos = inputTextCopy.find_first_of("\r\n");
+		string line = inputTextCopy.substr(0, pos);
+		if (line.find(':') != line.npos) {
+			etiquette myEtiquette;
+			myEtiquette.name = line.replace(line.find_first_of(':'), line.find_first_of(':') + 1, "");
+			myEtiquette.pcPosition = pcCounter + 1;
+			etiquettes.push_front(myEtiquette);
+		}
+		inputTextCopy = inputTextCopy.substr(pos + 2, inputTextCopy.length());
+		pcCounter++;
+	}
+	pcCounter = 0;
 	while (inputText.length() != 0) {
 		size_t pos = inputText.find_first_of("\r\n");
 		string line = inputText.substr(0, pos);
-		if (line.find(':') == string::npos)
-		{
-			int test = transform->GetInstructionType(line.substr(0, line.find_first_of(' ')));
+		if (line.find(':') == line.npos) {
 			switch (transform->GetInstructionType(transform->GetInstructionBinaryCode(line.substr(0, line.find_first_of(' ')))))
 			{
 			case 1:
@@ -73,11 +85,11 @@ string tokenizer::Tokenizer::tokenize(string input){
 			case 3:
 			{
 				string opcode_binary = transform->GetInstructionBinaryCode(line.substr(0, line.find(' ')));
-				string operand = line.substr(line.find(' ')+1, line.length());
+				string operand = line.substr(line.find(' ') + 1, line.length());
 				for (auto it = etiquettes.begin(); it != etiquettes.end(); it++) {
 					if (it->name == operand)
 					{
-						operand = transform->IntToBinary(pcCounter - it->pcPosition,transform->HALF_LEN);
+						operand = transform->IntToBinary(it->pcPosition - pcCounter, transform->HALF_LEN);
 					}
 					/// <summary>
 					/// error if ettiquete not defined 
@@ -85,7 +97,7 @@ string tokenizer::Tokenizer::tokenize(string input){
 					/// <returns>block reading from current file and write on label that etiquette is not defined</returns>
 					else
 					{
-						
+
 					}
 				}
 				outputText += opcode_binary;
@@ -100,14 +112,6 @@ string tokenizer::Tokenizer::tokenize(string input){
 			default:
 				break;
 			}
-
-		}
-		else
-		{
-			etiquette myEtiquette;
-			myEtiquette.name = line.replace(line.find_first_of(':'), line.find_first_of(':') + 1, "");
-			myEtiquette.pcPosition = pcCounter+1;
-			etiquettes.push_front(myEtiquette);
 		}
 		inputText = inputText.substr(pos + 2, inputText.length());
 		pcCounter++;

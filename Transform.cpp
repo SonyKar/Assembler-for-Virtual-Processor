@@ -27,40 +27,41 @@ Transform::Transform()
 		{"ror", "1000001000"},
 		{"rlc", "1000001001"},
 		{"rrc", "1000001010"},
-		{"jmp", "1000001011"},
-		{"call", "1000001100"},
-		{"push", "1000001101"},
-		{"pop", "1000001110"},
+		{"push", "1000001011"},
+		{"pop", "1000001100"},
+		{"jmp", "1000001101"}, // nu lucreaza
+		{"call", "1000001110"}, // nu lucreaza
 
 		// b3
-		{"br", "11000000"},
+		{"beq", "11000000"},
 		{"bne", "11000001"},
-		{"beq", "11000010"},
+		{"bmi", "11000010"},
 		{"bpl", "11000011"},
-		{"bmi", "11000100"},
-		{"bcs", "11000101"},
-		{"bcc", "11000110"},
-		{"bvs", "11000111"},
-		{"bvc", "11001000"},
+		{"bcs", "11000100"},
+		{"bcc", "11000101"},
+		{"bvs", "11000110"},
+		{"bvc", "11000111"},
+		{"br", "11001000"}, // nu lucreaza
 
 		// b4
 		{"clc", "1110000000000000"},
-		{"clv", "1110000000000001"},
-		{"cls", "1110000000000010"},
+		{"sec", "1110000000000001"},
+		{"nop", "1110000000000010"},
 		{"halt", "1110000000000011"},
-		{"sec", "1110000000000100"},
-		{"sev", "1110000000000101"},
-		{"sez", "1110000000000110"},
-		{"ses", "1110000000000111"},
-		{"scc", "1110000000001000"},
-		{"nop", "1110000000001001"},
+		{"pushpc", "1110000000000110"},
+		{"poppc", "111000000000111"},
+		{"pushflag", "1110000000001000"},
+		{"popflag", "1110000000001001"},
 		{"ret", "1110000000001010"},
 		{"reti", "1110000000001011"},
-		{"ccc", "1110000000001100"},
-		{"wait", "1110000000001101"},
-		{"pushpc", "1110000000001110"},
-		{"poppc", "1110000000001110"},
-		{"pushflag", "1110000000001111"}
+		// {"clv", "1110000000000001"},
+		// {"cls", "1110000000000010"},
+		// {"sev", "1110000000000101"},
+		// {"sez", "1110000000000110"},
+		// {"ses", "1110000000000111"},
+		// {"scc", "1110000000001000"},
+		// {"ccc", "1110000000001100"},
+		// {"wait", "1110000000001101"}
 	};
 }
 
@@ -90,7 +91,8 @@ int Transform::GetInstructionType(string opcode)
 string Transform::IntToBinary(int value, short int operandLength)
 {
 	string result = "";
-
+	bool isNegative = value < 0;
+	value = abs(value);
 	while (value != 0)
 	{
 		result = (char)((value % 2) + '0') + result;
@@ -102,28 +104,33 @@ string Transform::IntToBinary(int value, short int operandLength)
 	{
 		result = "0" + result;
 	}
-
+	if (isNegative) result[0] = '-';
 	return result;
 }
 
-char Transform::BinaryLineToByte(string binary)
+wchar_t Transform::BinaryLineToByte(string binary)
 {
 	char binaryString[17];
+	bool isNegative = binary[0] == '-';
+	if (isNegative) binary[0] = '0';
 	strcpy_s(binaryString, 17, binary.c_str());
 	int value = (int)strtol(binaryString, NULL, 2);
 
-	return (char)value;
+	if (isNegative) value = -value;
+	return (wchar_t)value;
 }
 
 int Transform::StringToInt(string str, int startIndex, int endIndex)
 {
+	bool isNegative = str[0] == '-';
+	if (isNegative) str[0] = '0';
 	int tmp = 0;
 	for (int i = startIndex; i < endIndex; i++)
 	{
 		tmp += (int)str[i] - '0';
 		tmp *= 10;
 	}
-
+	if (isNegative) tmp = -tmp;
 	return tmp / 10;
 }
 
@@ -171,7 +178,7 @@ string Transform::OperandToBinary(string operand, short int length)
 	else
 	{
 		int tmp = StringToInt(operand, 0, operand.size());
-		result = IMEDIATE_ADDRESS + IntToBinary(tmp, length);
+		result = IMEDIATE_ADDRESS + IntToBinary(0, length) + IntToBinary(tmp, FULL_LEN);
 	}
 
 	return result;
