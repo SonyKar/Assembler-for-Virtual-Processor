@@ -17,7 +17,7 @@ namespace Assembler_for_Virtual_Processor
 	public:
 		MainPage();
 
-		void cgShowRegisters();
+		void cpuShowParameters();
 		void cgRegisterContent(int registerName, Platform::String^ value);
 		void cgTContent(Platform::String^ value);
 		void cgPCContent(Platform::String^ value);
@@ -50,5 +50,6 @@ namespace Assembler_for_Virtual_Processor
 
 	
 
+		void Button_Click_3(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 	};
 }

@@ -126,7 +126,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 void Assembler_for_Virtual_Processor::MainPage::Button_Click_2(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	Processor::RunHalt();
-	cgShowRegisters();
+	cpuShowParameters();
 }
 
 void Assembler_for_Virtual_Processor::MainPage::R1_Copy_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
@@ -199,7 +199,7 @@ void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerNa
 }
 
 
-void Assembler_for_Virtual_Processor::MainPage::cgShowRegisters()
+void Assembler_for_Virtual_Processor::MainPage::cpuShowParameters()
 {
 	cgTContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::T)));
 	cgPCContent(helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::PC)));
@@ -325,4 +325,11 @@ void Assembler_for_Virtual_Processor::MainPage::cgNContent(Platform::String^ val
 void Assembler_for_Virtual_Processor::MainPage::cgVContent(Platform::String^ value)
 {
 	this->V_content->Text = value;
+}
+
+
+void Assembler_for_Virtual_Processor::MainPage::Button_Click_3(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	Processor::RunStep();
+	cpuShowParameters();
 }
