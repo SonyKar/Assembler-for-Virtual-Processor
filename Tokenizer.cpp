@@ -25,6 +25,50 @@ string tokenizer::Tokenizer::tokenize(string input){
 			myEtiquette.pcPosition = pcCounter + 1;
 			etiquettes.push_front(myEtiquette);
 		}
+		else 
+		{
+			switch (transform->GetInstructionType(transform->GetInstructionBinaryCode(line.substr(0, line.find_first_of(' ')))))
+			{
+				case 1:
+				{
+					size_t posOfComma = line.find(',');
+					size_t posOfSpace = line.find_first_of(' ');
+					string aux = line.substr(posOfSpace + 1);
+					string destination_operand = aux.substr(0, aux.find(','));
+					string binary_destination_operand = transform->OperandToBinary(destination_operand, 4);
+					string source_operand = line.substr(posOfComma + 1);
+					string binary_source_operand = transform->OperandToBinary(source_operand, 4);
+					char addressType[3] = { binary_source_operand[0], binary_source_operand[1], '\0'};
+					if (addressType == transform->IMEDIATE_ADDRESS || addressType == transform->INDEX_ADDRESS)
+					{
+						pcCounter++;
+					}
+					addressType[0] = binary_destination_operand[0];
+					addressType[1] = binary_destination_operand[1];
+					if (addressType == transform->IMEDIATE_ADDRESS || addressType == transform->INDEX_ADDRESS)
+					{
+						pcCounter++;
+					}
+					break;
+				}
+				case 2:
+				{
+					string destination_operand = line.substr(line.find(' ') + 1, line.length());
+					string binary_destination_operand = transform->OperandToBinary(destination_operand, 4);
+					char addressType[2] = { binary_destination_operand[0], binary_destination_operand[1] };
+					if (addressType == transform->IMEDIATE_ADDRESS || addressType == transform->INDEX_ADDRESS)
+					{
+						pcCounter++;
+					}
+					break;
+				}
+				case 3:
+				{
+					pcCounter++;
+					break;
+				}
+			}
+		}
 		inputTextCopy = inputTextCopy.substr(pos + 2, inputTextCopy.length());
 		pcCounter++;
 	}
@@ -50,6 +94,17 @@ string tokenizer::Tokenizer::tokenize(string input){
 				}
 				string source_operand = line.substr(posOfComma + 1);
 				string binary_source_operand = transform->OperandToBinary(source_operand, 4);
+				char addressType[3] = { binary_source_operand[0], binary_source_operand[1], '\0' };
+				if (addressType == transform->IMEDIATE_ADDRESS || addressType == transform->INDEX_ADDRESS)
+				{
+					pcCounter++;
+				}
+				addressType[0] = binary_destination_operand[0];
+				addressType[1] = binary_destination_operand[1];
+				if (addressType == transform->IMEDIATE_ADDRESS || addressType == transform->INDEX_ADDRESS)
+				{
+					pcCounter++;
+				}
 				string binary_source_operand_indexed = "";
 				if (binary_source_operand.length() > 6) {
 					binary_source_operand_indexed = binary_source_operand.substr(6, binary_source_operand.length());
@@ -67,6 +122,11 @@ string tokenizer::Tokenizer::tokenize(string input){
 				string opcode_binary = transform->GetInstructionBinaryCode(line.substr(0, line.find(' ')));
 				string destination_operand = line.substr(line.find(' ') + 1, line.length());
 				string binary_destination_operand = transform->OperandToBinary(destination_operand, 4);
+				char addressType[3] = { binary_destination_operand[0], binary_destination_operand[1], '\0' };
+				if (addressType == transform->IMEDIATE_ADDRESS || addressType == transform->INDEX_ADDRESS)
+				{
+					pcCounter++;
+				}
 				string binary_destination_operand_indexed = "";
 				string binary_source_operand_indexed = "";
 				if (binary_destination_operand.length() > 6) {
@@ -89,19 +149,15 @@ string tokenizer::Tokenizer::tokenize(string input){
 				for (auto it = etiquettes.begin(); it != etiquettes.end(); it++) {
 					if (it->name == operand)
 					{
-						operand = transform->IntToBinary(it->pcPosition - pcCounter, transform->HALF_LEN);
-					}
-					/// <summary>
-					/// error if ettiquete not defined 
-					/// </summary>
-					/// <returns>block reading from current file and write on label that etiquette is not defined</returns>
-					else
-					{
-
+						int relativePosition = it->pcPosition - pcCounter;
+						if (relativePosition < 0) relativePosition -= 2;
+						else relativePosition -= 3;
+						operand = transform->OperandToBinary(to_string(relativePosition), 4, true); // 00 + IM + 0000
 					}
 				}
 				outputText += opcode_binary;
 				outputText += operand;
+				pcCounter++;
 				break;
 			}
 			case 4:

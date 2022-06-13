@@ -150,8 +150,8 @@ void Processor::DecodeSBus()
 	case 10: // PdIR[7..0]s
 		ProcessorStructure::SBUS = ProcessorStructure::IR & 255;
 		break;
-	case 11: // Pd0s
-		ProcessorStructure::SBUS = 0;
+	case 11: // Pd1s
+		ProcessorStructure::SBUS = 1;
 		break;
 	case 12: // Pd-1s
 		ProcessorStructure::SBUS = -1;
@@ -163,56 +163,68 @@ void Processor::DecodeSBus()
 
 void Processor::DecodeALU()
 {
-	ProcessorStructure::flags = 0;
 	int signBit = (ProcessorStructure::RBUS & 8000) >> 15;
 	switch ((ProcessorStructure::MIR & 251658240) >> 24)
 	{
 	case 0:
 		break;
 	case 1: // SBUS
+		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::SBUS;
 		break;
 	case 2: // DBUS
+		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS;
 		break;
 	case 3: // ADD
+		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS + ProcessorStructure::SBUS;
 		break;
 	case 4: // SUB
+		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS - ProcessorStructure::SBUS;
 		break;
 	case 5: // AND
+		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS & ProcessorStructure::SBUS;
 		break;
 	case 6: // OR
+		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS | ProcessorStructure::SBUS;
 		break;
 	case 7: // XOR
+		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS ^ ProcessorStructure::SBUS;
 		break;
 	case 8: // ASL
-		ProcessorStructure::RBUS = (ProcessorStructure::DBUS << ProcessorStructure::SBUS) & 65535;
+		ProcessorStructure::flags = 0;
+		ProcessorStructure::RBUS = ProcessorStructure::DBUS << 1;
 		break;
 	case 9: // ASR
-		ProcessorStructure::RBUS = ProcessorStructure::DBUS >> ProcessorStructure::SBUS;
+		ProcessorStructure::flags = 0;
+		ProcessorStructure::RBUS = ProcessorStructure::DBUS >> 1;
 		break;
 	case 10: // LSR
 	{
+		ProcessorStructure::flags = 0;
 		unsigned int unsignedTmp = ProcessorStructure::DBUS;
-		ProcessorStructure::RBUS = unsignedTmp >> ProcessorStructure::SBUS;
+		ProcessorStructure::RBUS = unsignedTmp >> 1;
 	}
 		break;
 	case 11: // ROL
 	{
-		short firstBit = ProcessorStructure::DBUS >> 15;
-		ProcessorStructure::RBUS = (ProcessorStructure::DBUS << ProcessorStructure::SBUS) & 65535;
-		ProcessorStructure::RBUS += firstBit;
+		ProcessorStructure::flags = 0;
+		short firstBit = 0;
+		if (ProcessorStructure::DBUS < 0) firstBit = 1;
+		ProcessorStructure::RBUS = ProcessorStructure::DBUS << 1;
+		ProcessorStructure::RBUS |= firstBit;
 	}
 		break;
 	case 12: // ROR
 	{
+		ProcessorStructure::flags = 0;
 		short lastBit = ProcessorStructure::DBUS & 1;
-		ProcessorStructure::RBUS = ProcessorStructure::DBUS >> ProcessorStructure::SBUS;
+		ProcessorStructure::RBUS = ProcessorStructure::DBUS >> 1;
 		ProcessorStructure::RBUS += (lastBit << 15);
 	}
 		break;

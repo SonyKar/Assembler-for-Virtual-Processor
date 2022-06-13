@@ -25,12 +25,12 @@ Transform::Transform()
 		{"lsr", "1000000110"},
 		{"rol", "1000000111"},
 		{"ror", "1000001000"},
-		{"rlc", "1000001001"},
-		{"rrc", "1000001010"},
+		{"rlc", "1000001001"}, // idk
+		{"rrc", "1000001010"}, // idk
 		{"push", "1000001011"},
 		{"pop", "1000001100"},
-		{"jmp", "1000001101"}, // nu lucreaza
-		{"call", "1000001110"}, // nu lucreaza
+		{"jmp", "1000001101"}, // nu ajunge
+		{"call", "1000001110"}, // nu ajunge
 
 		// b3
 		{"beq", "11000000"},
@@ -41,7 +41,7 @@ Transform::Transform()
 		{"bcc", "11000101"},
 		{"bvs", "11000110"},
 		{"bvc", "11000111"},
-		{"br", "11001000"}, // nu lucreaza
+		{"br", "11001000"}, // IT'S WORKING! IT'S WORKIIIIIIING!!!
 
 		// b4
 		{"clc", "1110000000000000"},
@@ -134,7 +134,7 @@ int Transform::StringToInt(string str, int startIndex, int endIndex)
 	return tmp / 10;
 }
 
-string Transform::OperandToBinary(string operand, short int length)
+string Transform::OperandToBinary(string operand, short int length, bool isOffset)
 {
 	string result;
 	int indexR = -1, indexParantesesO = -1, indexParantasesC = -1;
@@ -179,6 +179,9 @@ string Transform::OperandToBinary(string operand, short int length)
 	{
 		int tmp = StringToInt(operand, 0, operand.size());
 		result = IMEDIATE_ADDRESS + IntToBinary(0, length) + IntToBinary(tmp, FULL_LEN);
+	}
+	if (isOffset) {
+		result = "00" + result;
 	}
 
 	return result;

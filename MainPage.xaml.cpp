@@ -303,7 +303,7 @@ void Assembler_for_Virtual_Processor::MainPage::cgRBUSContent(Platform::String^ 
 
 void Assembler_for_Virtual_Processor::MainPage::cgZContent(Platform::String^ value)
 {
-	this->C_content->Text = value;
+	this->Z_content->Text = value;
 }
 
 void Assembler_for_Virtual_Processor::MainPage::cgCContent(Platform::String^ value)
