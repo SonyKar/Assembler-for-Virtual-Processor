@@ -39,8 +39,8 @@ Transform::Transform()
 		// b3
 		{"beq", "11000000"},
 		{"bne", "11000001"},
-		{"bmi", "11000010"},
-		{"bpl", "11000011"},
+		{"bmi", "11000010"},//jump if s < d
+		{"bpl", "11000011"},//jump if s > d
 		{"bcs", "11000100"},
 		{"bcc", "11000101"},
 		{"bvs", "11000110"},
@@ -54,10 +54,10 @@ Transform::Transform()
 		{"halt", "1110000000000011"},
 		{"pushpc", "1110000000000110"},
 		{"poppc", "111000000000111"},
-		{"pushflag", "1110000000001000"},
-		{"popflag", "1110000000001001"},
-		{"ret", "1110000000001010"},
-		{"reti", "1110000000001011"},
+		{"pushflags", "1110000000001000"},
+		{"popflags", "1110000000001001"},
+		//{"ret", "1110000000001010"},// not having call 
+		//{"reti", "1110000000001011"},
 		// {"clv", "1110000000000001"},
 		// {"cls", "1110000000000010"},
 		// {"sev", "1110000000000101"},
@@ -144,7 +144,7 @@ string Transform::OperandToBinary(string operand, short int length, bool isOffse
 	int indexR = -1, indexParantesesO = -1, indexParantasesC = -1;
 	bool containR = false, containParanteses = false;
 
-	for (int i = 0; i < operand.size(); i++) 
+	for (int i = 0; i < operand.size(); i++)
 	{
 		if (operand[i] == 'r')
 		{
@@ -167,7 +167,7 @@ string Transform::OperandToBinary(string operand, short int length, bool isOffse
 		if (indexR > indexParantesesO && indexR < indexParantasesC)
 		{
 			result = INDIRECT_REGISTER + IntToBinary((int)operand[indexR + 1] - '0', length);
-		} 
+		}
 		else
 		{
 			int tmp = StringToInt(operand, indexParantesesO + 1, indexParantasesC);

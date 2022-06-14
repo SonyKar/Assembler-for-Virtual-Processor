@@ -77,6 +77,7 @@ void Assembler_for_Virtual_Processor::MainPage::Generate_Binary_Output(Platform:
 	for (int i = 0; i < ouputTextBin.length() / 16; i++) {
 		string line = ouputTextBin.substr(0, (1 + i) * 16);
 		line = line.substr(i * 16, line.length()) + "\n";
+		if (line[0] == '-') line[0] = '1';
 		output->Text += helper::Helper::StdStringToPlatformString(line);
 	}
 	string ouputTextBinWriteTask = ouputTextBin;
@@ -85,7 +86,7 @@ void Assembler_for_Virtual_Processor::MainPage::Generate_Binary_Output(Platform:
 	{
 		string line = ouputTextBinWriteTask.substr(0, 16);
 		wchar_t hexLineOutput = transform->BinaryLineToByte(line);
-		hexOutput.push_back(hexLineOutput); 
+		hexOutput.push_back(hexLineOutput);
 		ouputTextBinWriteTask = ouputTextBinWriteTask.substr(16, ouputTextBinWriteTask.length());
 	}
 	//moved to back end

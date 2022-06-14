@@ -57,7 +57,7 @@ void Processor::Run()
 	default:
 		break;
 	}
-	
+
 }
 
 void Processor::Decode()
@@ -163,72 +163,82 @@ void Processor::DecodeSBus()
 
 void Processor::DecodeALU()
 {
-	int signBit = (ProcessorStructure::RBUS & 8000) >> 15;
+	bool isArithmetic = false;
+	int signBit = (ProcessorStructure::RBUS & 0x8000) >> 15;
+	
 	switch ((ProcessorStructure::MIR & 251658240) >> 24)
 	{
 	case 0:
 		break;
 	case 1: // SBUS
-		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::SBUS;
 		break;
 	case 2: // DBUS
-		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS;
 		break;
 	case 3: // ADD
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS + ProcessorStructure::SBUS;
 		break;
 	case 4: // SUB
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS - ProcessorStructure::SBUS;
 		break;
 	case 5: // AND
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS & ProcessorStructure::SBUS;
 		break;
 	case 6: // OR
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS | ProcessorStructure::SBUS;
 		break;
 	case 7: // XOR
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS ^ ProcessorStructure::SBUS;
 		break;
 	case 8: // ASL
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS << 1;
 		break;
 	case 9: // ASR
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS >> 1;
 		break;
 	case 10: // LSR
 	{
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		unsigned int unsignedTmp = ProcessorStructure::DBUS;
 		ProcessorStructure::RBUS = unsignedTmp >> 1;
 	}
-		break;
+	break;
 	case 11: // ROL
 	{
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		short firstBit = 0;
 		if (ProcessorStructure::DBUS < 0) firstBit = 1;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS << 1;
 		ProcessorStructure::RBUS |= firstBit;
 	}
-		break;
+	break;
 	case 12: // ROR
 	{
+		isArithmetic = true;
 		ProcessorStructure::flags = 0;
 		short lastBit = ProcessorStructure::DBUS & 1;
 		ProcessorStructure::RBUS = ProcessorStructure::DBUS >> 1;
 		ProcessorStructure::RBUS += (lastBit << 15);
 	}
-		break;
-	
+	break;
+
 	case 13: // RLC ??
 		break;
 	case 14: // RRC ??
@@ -236,27 +246,27 @@ void Processor::DecodeALU()
 	default:
 		break;
 	}
+	if (isArithmetic)
+	{
+		if (ProcessorStructure::RBUS == 0)
+		{
+			ProcessorStructure::flags = 0b100;
+		}
+		else if (ProcessorStructure::RBUS < 0)
+		{
+			ProcessorStructure::flags = 0b1000;
+		}
+		
+		if (signBit != (ProcessorStructure::RBUS & 0x8000) >> 15) // overflow
+		{
+			ProcessorStructure::flags |= 0b10;
+			if (signBit)//carry
+			{
+				ProcessorStructure::flags |= 0b1;
+			}
+		}
+	}
 	
-	if (ProcessorStructure::RBUS == 0)
-	{
-		ProcessorStructure::flags = 0b100;
-	}
-	else if (ProcessorStructure::RBUS < 0)
-	{
-		ProcessorStructure::flags = 0b1000;
-	}
-	if ((ProcessorStructure::RBUS & 65536) && (signBit != (ProcessorStructure::RBUS & 8000) >> 15)) // overflow & carry
-	{
-		ProcessorStructure::flags |= 0b11;
-	}
-	else if (ProcessorStructure::RBUS & 65536) // carry
-	{
-		ProcessorStructure::flags |= 0b1;
-	}
-	else if (signBit != (ProcessorStructure::RBUS & 8000) >> 15) // overflow
-	{
-		ProcessorStructure::flags |= 0b10;
-	}
 }
 
 void Processor::DecodeRBus()
@@ -395,11 +405,11 @@ void Processor::LdMAR()
 		}
 		break;
 	case 8192:// jump 0b100
-		if (!((ProcessorStructure::MIR & 128) >> 7) && (ProcessorStructure::flags & 1))//if carry
+		if (!((ProcessorStructure::MIR & 128) >> 7) && ProcessorStructure::C)//if carry
 		{
 			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
-		else if (((ProcessorStructure::MIR & 128) >> 7) && !(ProcessorStructure::flags & 1))//if not carry
+		else if (((ProcessorStructure::MIR & 128) >> 7) && !ProcessorStructure::C)//if not carry
 		{
 			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
@@ -409,11 +419,11 @@ void Processor::LdMAR()
 		}
 		break;
 	case 10240:// jump 0b101
-		if (!((ProcessorStructure::MIR & 128) >> 7) && ((ProcessorStructure::flags & 100) >> 2))//if zero
+		if (!((ProcessorStructure::MIR & 128) >> 7) && ProcessorStructure::Z)//if zero
 		{
 			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
-		else if (((ProcessorStructure::MIR & 128) >> 7) && !((ProcessorStructure::flags & 100) >> 2))//if not zero
+		else if (((ProcessorStructure::MIR & 128) >> 7) && !ProcessorStructure::Z)//if not zero
 		{
 			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
@@ -423,11 +433,11 @@ void Processor::LdMAR()
 		}
 		break;
 	case 12288:// jump 0b110
-		if (!((ProcessorStructure::MIR & 128) >> 7) && ((ProcessorStructure::flags & 1000) >> 3))//if negative
+		if (!((ProcessorStructure::MIR & 128) >> 7) && ProcessorStructure::N)//if negative
 		{
 			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
-		else if (((ProcessorStructure::MIR & 128) >> 7) && !((ProcessorStructure::flags & 1000) >> 3))//if not negative
+		else if (((ProcessorStructure::MIR & 128) >> 7) && !ProcessorStructure::N)//if not negative
 		{
 			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
@@ -437,11 +447,11 @@ void Processor::LdMAR()
 		}
 		break;
 	case 14336:// jump 0b111
-		if (!((ProcessorStructure::MIR & 128) >> 7) && ((ProcessorStructure::flags & 10) >> 1))//if overflow
+		if (!((ProcessorStructure::MIR & 128) >> 7) && ProcessorStructure::V)//if overflow
 		{
 			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
-		else if (((ProcessorStructure::MIR & 128) >> 7) && !((ProcessorStructure::flags & 10) >> 1))//if not overflow
+		else if (((ProcessorStructure::MIR & 128) >> 7) && !ProcessorStructure::V)//if not overflow
 		{
 			ProcessorStructure::MAR = (ProcessorStructure::MIR & 127) + GetIndexValue();
 		}
