@@ -30,5 +30,6 @@ namespace assembler
 		string IntToBinary(int value, short int operandLength);
 		wchar_t BinaryLineToByte(string binary);
 		string OperandToBinary(string operand, short int length, bool isOffset = false);
+		string IntToHex(int number);
 	};
 }

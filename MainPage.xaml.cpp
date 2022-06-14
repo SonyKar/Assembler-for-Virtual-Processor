@@ -37,9 +37,10 @@ using namespace tokenizer;
 MainPage::MainPage()
 {
 	InitializeComponent();
+	cpuShowParameters();
 }
 
-void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void Assembler_for_Virtual_Processor::MainPage::Pick_File_Handler(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 
 	StorageFolder^ storageFolder = ApplicationData::Current->LocalFolder;
@@ -68,7 +69,7 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click(Platform::Object^ s
 		);
 }
 
-void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void Assembler_for_Virtual_Processor::MainPage::Generate_Binary_Output(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	assembler::Transform* transform = new assembler::Transform();
 	string ouputTextBin = tokenizer::Tokenizer::tokenize(helper::Helper::platformStringToStdString(content->Text));
@@ -117,81 +118,19 @@ void Assembler_for_Virtual_Processor::MainPage::Button_Click_1(Platform::Object^
 
 }
 
-void Assembler_for_Virtual_Processor::MainPage::Button_Click_2(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void Assembler_for_Virtual_Processor::MainPage::Run_Halt_Handler(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 	Processor::RunHalt();
-	cpuShowParameters();
+	if (isHex) cpuShowParametersHex();
+	else cpuShowParameters();
 }
 
-void Assembler_for_Virtual_Processor::MainPage::R1_Copy_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void Assembler_for_Virtual_Processor::MainPage::Run_Step_Handler(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-
+	Processor::RunStep();
+	if (isHex) cpuShowParametersHex();
+	else cpuShowParameters();
 }
-
-void Assembler_for_Virtual_Processor::MainPage::MDR_content_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
-{
-	
-}
-
-void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerName, Platform::String^ value)
-{
-
-	switch (registerName)
-	{
-	case 0:
-		this->R0_content->Text = value;
-		break;
-	case 1:
-		this->R1_content->Text = value;
-		break;
-	case 2:
-		this->R2_content->Text = value;
-		break;
-	case 3:
-		this->R3_content->Text = value;
-		break;
-	case 4:
-		this->R4_content->Text = value;
-		break;
-	case 5:
-		this->R5_content->Text = value;
-		break;
-	case 6:
-		this->R6_content->Text = value;
-		break;
-	case 7:
-		R7_content->Text = value;
-		break;
-	case 8:
-		this->R8_content->Text = value;
-		break;
-	case 9:
-		this->R9_content->Text = value;
-		break;
-	case 10:
-		this->R10_content->Text = value;
-		break;
-	case 11:
-		this->R11_content->Text = value;
-		break;
-	case 12:
-		this->R12_content->Text = value;
-		break;
-	case 13:
-		this->R13_content->Text = value;
-		break;
-	case 14:
-		this->R14_content->Text = value;
-		break;
-	case 15:
-		this->R15_content->Text = value;
-		break;
-	default:
-		break;
-	}
-
-}
-
 
 void Assembler_for_Virtual_Processor::MainPage::cpuShowParameters()
 {
@@ -219,6 +158,47 @@ void Assembler_for_Virtual_Processor::MainPage::cpuShowParameters()
 	{
 		cgRegisterContent(i, helper::Helper::StdStringToPlatformString(std::to_string(ProcessorStructure::RG[i])));
 	}
+}
+
+void Assembler_for_Virtual_Processor::MainPage::cpuShowParametersHex()
+{
+	assembler::Transform transform;
+	cgTContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::T)));
+	cgPCContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::PC)));
+	cgSPContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::SP)));
+	cgFLAGSContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::flags)));
+	cgBE1Content(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::BE1)));
+	cgBE0Content(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::BE0)));
+	cgBVIContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::BVI)));
+	cgBPOContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::BPO)));
+	cgMARContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::MAR)));
+	cgMIRContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::MIR)));
+	cgMDRContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::MDR)));
+	cgADRContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::ADR)));
+	cgIRContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::IR)));
+	cgSBUSContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::SBUS)));
+	cgDBUSContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::DBUS)));
+	cgRBUSContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::RBUS)));
+	cgZContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::Z)));
+	cgCContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::C)));
+	cgNContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::N)));
+	cgVContent(helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::V)));
+	for (int i = 0; i < 16; i++)
+	{
+		cgRegisterContent(i, helper::Helper::StdStringToPlatformString(transform.IntToHex(ProcessorStructure::RG[i])));
+	}
+}
+
+void Assembler_for_Virtual_Processor::MainPage::Dec_Representation_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	cpuShowParameters();
+	isHex = false;
+}
+
+void Assembler_for_Virtual_Processor::MainPage::Hex_Representation_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	cpuShowParametersHex();
+	isHex = true;
 }
 
 void Assembler_for_Virtual_Processor::MainPage::cgTContent(Platform::String^ value)
@@ -321,9 +301,61 @@ void Assembler_for_Virtual_Processor::MainPage::cgVContent(Platform::String^ val
 	this->V_content->Text = value;
 }
 
-
-void Assembler_for_Virtual_Processor::MainPage::Button_Click_3(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+void Assembler_for_Virtual_Processor::MainPage::cgRegisterContent(int registerName, Platform::String^ value)
 {
-	Processor::RunStep();
-	cpuShowParameters();
+
+	switch (registerName)
+	{
+	case 0:
+		this->R0_content->Text = value;
+		break;
+	case 1:
+		this->R1_content->Text = value;
+		break;
+	case 2:
+		this->R2_content->Text = value;
+		break;
+	case 3:
+		this->R3_content->Text = value;
+		break;
+	case 4:
+		this->R4_content->Text = value;
+		break;
+	case 5:
+		this->R5_content->Text = value;
+		break;
+	case 6:
+		this->R6_content->Text = value;
+		break;
+	case 7:
+		R7_content->Text = value;
+		break;
+	case 8:
+		this->R8_content->Text = value;
+		break;
+	case 9:
+		this->R9_content->Text = value;
+		break;
+	case 10:
+		this->R10_content->Text = value;
+		break;
+	case 11:
+		this->R11_content->Text = value;
+		break;
+	case 12:
+		this->R12_content->Text = value;
+		break;
+	case 13:
+		this->R13_content->Text = value;
+		break;
+	case 14:
+		this->R14_content->Text = value;
+		break;
+	case 15:
+		this->R15_content->Text = value;
+		break;
+	default:
+		break;
+	}
+
 }

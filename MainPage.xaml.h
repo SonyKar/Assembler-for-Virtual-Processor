@@ -18,6 +18,7 @@ namespace Assembler_for_Virtual_Processor
 		MainPage();
 
 		void cpuShowParameters();
+		void cpuShowParametersHex();
 		void cgRegisterContent(int registerName, Platform::String^ value);
 		void cgTContent(Platform::String^ value);
 		void cgPCContent(Platform::String^ value);
@@ -35,21 +36,19 @@ namespace Assembler_for_Virtual_Processor
 		void cgSBUSContent(Platform::String^ value);
 		void cgDBUSContent(Platform::String^ value);
 		void cgRBUSContent(Platform::String^ value);
-
 		void cgZContent(Platform::String^ value);
 		void cgCContent(Platform::String^ value);
 		void cgNContent(Platform::String^ value);
 		void cgVContent(Platform::String^ value);
+
 	private:
-		void Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
-		void path_TextChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::TextChangedEventArgs^ e);
-		void Button_Click_1(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
-		void Button_Click_2(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
-		void R1_Copy_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
-		void MDR_content_SelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		bool isHex = false;
 
-	
-
-		void Button_Click_3(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void Pick_File_Handler(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void Generate_Binary_Output(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void Run_Halt_Handler(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void Run_Step_Handler(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void Dec_Representation_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+		void Hex_Representation_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 	};
 }

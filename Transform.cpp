@@ -1,5 +1,9 @@
 #include "pch.h"
 #include "Transform.h"
+#include <iomanip>
+#include <iostream>
+#include <sstream>
+#include<string>
 
 using namespace assembler;
 
@@ -185,4 +189,12 @@ string Transform::OperandToBinary(string operand, short int length, bool isOffse
 	}
 
 	return result;
+}
+
+string assembler::Transform::IntToHex(int number)
+{
+	std::stringstream stream;
+	stream << std::hex << number;
+	//std::string result(stream.str());
+	return stream.str();
 }
